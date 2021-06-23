@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Attendance {
@@ -9,6 +9,8 @@ public class Attendance {
   private java.sql.Timestamp signOutTime;
   private String remark;
 
+  public Attendance() {
+  }
 
   public long getStaffId() {
     return staffId;

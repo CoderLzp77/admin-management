@@ -1,5 +1,4 @@
-package com.sample;
-
+package com.Pojo;
 
 public class Job {
 
@@ -7,6 +6,8 @@ public class Job {
   private String jobName;
   private String responsibilities;
 
+  public Job() {
+  }
 
   public long getJobId() {
     return jobId;

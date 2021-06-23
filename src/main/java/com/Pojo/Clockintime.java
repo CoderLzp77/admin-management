@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Clockintime {
@@ -6,6 +6,8 @@ public class Clockintime {
   private long staffId;
   private java.sql.Timestamp clockInTime;
 
+  public Clockintime() {
+  }
 
   public long getStaffId() {
     return staffId;

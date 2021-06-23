@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Staff {
@@ -19,6 +19,8 @@ public class Staff {
   private String email;
   private String photoUrl;
 
+  public Staff() {
+  }
 
   public long getStaffId() {
     return staffId;

@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Expenseitem {
@@ -9,6 +9,8 @@ public class Expenseitem {
   private double cost;
   private String remark;
 
+  public Expenseitem() {
+  }
 
   public long getReimId() {
     return reimId;

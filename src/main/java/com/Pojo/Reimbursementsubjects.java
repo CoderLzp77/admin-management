@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Reimbursementsubjects {
@@ -6,6 +6,8 @@ public class Reimbursementsubjects {
   private long subjectId;
   private String subjectName;
 
+  public Reimbursementsubjects() {
+  }
 
   public long getSubjectId() {
     return subjectId;

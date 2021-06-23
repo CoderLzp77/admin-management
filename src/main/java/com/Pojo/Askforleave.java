@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Askforleave {
@@ -14,6 +14,8 @@ public class Askforleave {
   private long state;
   private String approvalId;
 
+  public Askforleave() {
+  }
 
   public long getLeaveId() {
     return leaveId;

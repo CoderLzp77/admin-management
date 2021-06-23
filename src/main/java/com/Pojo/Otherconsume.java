@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Otherconsume {
@@ -9,6 +9,8 @@ public class Otherconsume {
   private String consumeType;
   private double cost;
 
+  public Otherconsume() {
+  }
 
   public long getConsumeId() {
     return consumeId;

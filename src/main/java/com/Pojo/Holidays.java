@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Holidays {
@@ -7,6 +7,8 @@ public class Holidays {
   private java.sql.Date holidayStartTime;
   private java.sql.Date holidayEndTime;
 
+  public Holidays() {
+  }
 
   public long getHolidayId() {
     return holidayId;

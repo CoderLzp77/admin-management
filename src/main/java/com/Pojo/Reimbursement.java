@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Reimbursement {
@@ -11,6 +11,8 @@ public class Reimbursement {
   private long state;
   private String approvalId;
 
+  public Reimbursement() {
+  }
 
   public long getReimId() {
     return reimId;

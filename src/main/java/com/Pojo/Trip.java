@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Trip {
@@ -15,6 +15,8 @@ public class Trip {
   private long state;
   private String approvalId;
 
+  public Trip() {
+  }
 
   public long getTripId() {
     return tripId;

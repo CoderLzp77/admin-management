@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Organization {
@@ -8,6 +8,8 @@ public class Organization {
   private String higherOrgId;
   private String remark;
 
+  public Organization() {
+  }
 
   public long getOrganizationId() {
     return organizationId;

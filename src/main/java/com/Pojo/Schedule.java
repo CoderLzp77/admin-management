@@ -1,4 +1,4 @@
-package com.sample;
+package com.Pojo;
 
 
 public class Schedule {
@@ -10,6 +10,8 @@ public class Schedule {
   private String transport;
   private double cost;
 
+  public Schedule() {
+  }
 
   public long getScheduleId() {
     return scheduleId;
