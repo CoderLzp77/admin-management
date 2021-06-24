@@ -1,4 +1,4 @@
-package com.Pojo;
+package com.pojo;
 
 
 public class Holidays {

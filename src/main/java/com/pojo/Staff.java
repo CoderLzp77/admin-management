@@ -1,9 +1,11 @@
-package com.Pojo;
+package com.pojo;
 
+
+import java.util.Set;
 
 public class Staff {
 
-  private long staffId;
+  private int staffId;
   private String userName;
   private String password;
   private long state;
@@ -18,6 +20,8 @@ public class Staff {
   private String phoneNumber;
   private String email;
   private String photoUrl;
+  private Set<Askforleave> askforleave;
+  private Organization organization;
 
   public Staff() {
   }
@@ -26,7 +30,7 @@ public class Staff {
     return staffId;
   }
 
-  public void setStaffId(long staffId) {
+  public void setStaffId(int staffId) {
     this.staffId = staffId;
   }
 
@@ -156,4 +160,19 @@ public class Staff {
     this.photoUrl = photoUrl;
   }
 
+  public Set<Askforleave> getAskforleave() {
+    return askforleave;
+  }
+
+  public void setAskforleave(Set<Askforleave> askforleave) {
+    this.askforleave = askforleave;
+  }
+
+  public Organization getOrganization() {
+    return organization;
+  }
+
+  public void setOrganization(Organization organization) {
+    this.organization = organization;
+  }
 }

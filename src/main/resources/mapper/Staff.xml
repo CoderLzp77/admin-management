@@ -1,0 +1,48 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.StaffDao">
+    <resultMap id="StaffMapper" type="com.pojo.Staff">
+    <id column="StaffId" property="staffId"/>
+    <result column="UserName" property="userName"/>
+    <result column="Password" property="password"/>
+    <result column="State" property="state"/>
+    <result column="StaffName" property="staffName"/>
+    <result column="Gender" property="gender"/>
+    <result column="Birthday" property="birthday"/>
+    <result column="OrganizationId" property="organizationId"/>
+    <result column="JobId" property="jobId"/>
+    <result column="DirectBoss" property="directBoss"/>
+    <result column="Birthplace" property="birthplace"/>
+    <result column="Position" property="position"/>
+    <result column="PhoneNumber" property="phoneNumber"/>
+    <result column="Email" property="email"/>
+    <result column="PhotoUrl" property="photoUrl"/>
+    <association property="organization" javaType="com.pojo.Organization">
+     <id column="OrganizationId" property="organizationId"/>
+     <result column="Name" property="name"/>
+     <result column="HigherOrgId" property="higherOrgId"/>
+     <result column="Remark" property="remark"/>
+    </association>
+    <collection javaType="com.pojo.Askforleave" property="askforleave" >
+        <id column="LeaveId" property="leaveId"/>
+        <result column="ApplyTime" property="applyTime"/>
+        <result column="StartTime" property="startTime"/>
+        <result column="EndTime" property="endTime"/>
+        <result column="Duration" property="duration"/>
+        <result column="Applicant" property="applicant"/>
+        <result column="Category" property="category"/>
+        <result column="Reason" property="reason"/>
+        <result column="State" property="state"/>
+        <result column="ApprovalId" property="approvalId"/>
+    </collection>
+    </resultMap>
+
+    <select id="findById" resultType="com.pojo.Staff" resultMap="StaffMapper" parameterType="java.lang.Integer">
+        select a.*,b.*,c.Name from staff a
+        left join askforleave b on a.StaffId = b.Applicant
+        left join organization c on c.OrganizationId =
+        (select a.OrganizationId from staff where a.StaffId = #{id})
+    </select>
+</mapper>

@@ -1,9 +1,9 @@
-package com.Pojo;
+package com.pojo;
 
 
 public class Organization {
 
-  private long organizationId;
+  private int organizationId;
   private String name;
   private String higherOrgId;
   private String remark;
@@ -15,7 +15,7 @@ public class Organization {
     return organizationId;
   }
 
-  public void setOrganizationId(long organizationId) {
+  public void setOrganizationId(int organizationId) {
     this.organizationId = organizationId;
   }
 

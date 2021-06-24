@@ -1,28 +1,29 @@
-package com.Pojo;
+package com.pojo;
 
 
-public class Askforleave {
+public class Trip {
 
-  private long leaveId;
+  private long tripId;
   private java.sql.Timestamp applyTime;
   private java.sql.Timestamp startTime;
   private java.sql.Timestamp endTime;
+  private long staffId;
   private long duration;
-  private long applicant;
   private String category;
+  private double amount;
   private String reason;
   private long state;
   private String approvalId;
 
-  public Askforleave() {
+  public Trip() {
   }
 
-  public long getLeaveId() {
-    return leaveId;
+  public long getTripId() {
+    return tripId;
   }
 
-  public void setLeaveId(long leaveId) {
-    this.leaveId = leaveId;
+  public void setTripId(long tripId) {
+    this.tripId = tripId;
   }
 
 
@@ -53,6 +54,15 @@ public class Askforleave {
   }
 
 
+  public long getStaffId() {
+    return staffId;
+  }
+
+  public void setStaffId(long staffId) {
+    this.staffId = staffId;
+  }
+
+
   public long getDuration() {
     return duration;
   }
@@ -62,21 +72,21 @@ public class Askforleave {
   }
 
 
-  public long getApplicant() {
-    return applicant;
-  }
-
-  public void setApplicant(long applicant) {
-    this.applicant = applicant;
-  }
-
-
   public String getCategory() {
     return category;
   }
 
   public void setCategory(String category) {
     this.category = category;
+  }
+
+
+  public double getAmount() {
+    return amount;
+  }
+
+  public void setAmount(double amount) {
+    this.amount = amount;
   }
 
 
