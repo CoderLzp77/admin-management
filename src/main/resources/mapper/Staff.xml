@@ -55,8 +55,9 @@
     </select>
     <select id="queryApprove" resultMap="StaffMapper">
         select a.*,b.*,c.* from staff a
-        left join askforleave b on a.StaffId = b.Applicant
+        left join askforleave b on a.StaffId=b.Applicant
         left join organization c on c.OrganizationId =a.OrganizationId
+        where b.State=1
         order by a.StaffId
     </select>
 </mapper>

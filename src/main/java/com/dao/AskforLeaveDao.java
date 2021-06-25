@@ -14,4 +14,13 @@ public interface AskforLeaveDao {
 /*    @Insert(value = "   insert into askforleave (ApplyTime,StartTime,EndTime,Duration,Applicant,Category,Reason,State,ApprovalId)\n" +
             "        value (#{applyTime},#{startTime},#{endTime},#{duration},#{applicant},#{category},#{reason},#{state},#{approvalId})")*/
     int queryStaff(Askforleave askforleave);
+
+    /**
+     *
+     * @param state
+     * @param id
+     * @return 影响行数
+     * 修改状态
+     */
+    int updateStateById(int state,int id);
 }

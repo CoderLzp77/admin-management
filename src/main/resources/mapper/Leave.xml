@@ -6,4 +6,7 @@
         insert into askforleave (ApplyTime,StartTime,EndTime,Duration,Applicant,Category,Reason,State,ApprovalId)
         value (#{applyTime},#{startTime},#{endTime},#{duration},#{applicant},#{category},#{reason},#{state},#{approvalId})
     </insert>
+    <update id="updateStateById" parameterType="java.lang.Integer">
+        update askforleave set State = #{arg0} where LeaveId = #{arg1}
+    </update>
 </mapper>

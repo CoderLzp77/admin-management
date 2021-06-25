@@ -16,4 +16,10 @@ public class LeaveServiceImpl implements LeaveService {
     public int queryStaff(Askforleave askforleave) {
         return askforLeaveDao.queryStaff(askforleave);
     }
+
+    @Override
+    @Transactional
+    public int updateById(int state, int id) {
+        return askforLeaveDao.updateStateById(state,id);
+    }
 }

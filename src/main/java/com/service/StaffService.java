@@ -1,7 +1,9 @@
 package com.service;
 
 import com.pojo.Staff;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface StaffService {
@@ -9,5 +11,7 @@ public interface StaffService {
 
     List<Staff> queryAll();
 
-    List<Staff> Approve();
+    List<Staff>  queryApprove();
+
+    String changeAvatar(MultipartFile file) throws IOException;
 }

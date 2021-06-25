@@ -15,4 +15,6 @@ public interface StaffDao {
     List<Staff> queryStaffById(int id,int pageNum,int pageSize);
 
     List<Staff> queryAll();
+
+    List<Staff> queryApprove();
 }
