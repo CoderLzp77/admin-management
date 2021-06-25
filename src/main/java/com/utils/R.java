@@ -14,6 +14,12 @@ public class R {
         this.setData(data);
         return this;
     }
+
+    public R success(){
+        this.setMessage("成功");
+        this.setStatus(200);
+        return this;
+    }
     public R error(){
         this.setStatus(404);
         this.setMessage("失败");

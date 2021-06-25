@@ -1,6 +1,8 @@
 package com.pojo;
 
 
+import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Staff {
@@ -8,32 +10,31 @@ public class Staff {
   private int staffId;
   private String userName;
   private String password;
-  private long state;
+  private int state;
   private String staffName;
   private String gender;
   private java.sql.Timestamp birthday;
-  private long organizationId;
-  private long jobId;
+  private int organizationId;
+  private int jobId;
   private String directBoss;
   private String birthplace;
   private String position;
   private String phoneNumber;
   private String email;
   private String photoUrl;
-  private Set<Askforleave> askforleave;
+  private Set<Askforleave> askforleave = new HashSet<>();
   private Organization organization;
 
   public Staff() {
   }
 
-  public long getStaffId() {
+  public int getStaffId() {
     return staffId;
   }
 
   public void setStaffId(int staffId) {
     this.staffId = staffId;
   }
-
 
   public String getUserName() {
     return userName;
@@ -43,7 +44,6 @@ public class Staff {
     this.userName = userName;
   }
 
-
   public String getPassword() {
     return password;
   }
@@ -52,15 +52,13 @@ public class Staff {
     this.password = password;
   }
 
-
-  public long getState() {
+  public int getState() {
     return state;
   }
 
-  public void setState(long state) {
+  public void setState(int state) {
     this.state = state;
   }
-
 
   public String getStaffName() {
     return staffName;
@@ -70,7 +68,6 @@ public class Staff {
     this.staffName = staffName;
   }
 
-
   public String getGender() {
     return gender;
   }
@@ -79,33 +76,29 @@ public class Staff {
     this.gender = gender;
   }
 
-
-  public java.sql.Timestamp getBirthday() {
+  public Timestamp getBirthday() {
     return birthday;
   }
 
-  public void setBirthday(java.sql.Timestamp birthday) {
+  public void setBirthday(Timestamp birthday) {
     this.birthday = birthday;
   }
 
-
-  public long getOrganizationId() {
+  public int getOrganizationId() {
     return organizationId;
   }
 
-  public void setOrganizationId(long organizationId) {
+  public void setOrganizationId(int organizationId) {
     this.organizationId = organizationId;
   }
 
-
-  public long getJobId() {
+  public int getJobId() {
     return jobId;
   }
 
-  public void setJobId(long jobId) {
+  public void setJobId(int jobId) {
     this.jobId = jobId;
   }
-
 
   public String getDirectBoss() {
     return directBoss;
@@ -115,7 +108,6 @@ public class Staff {
     this.directBoss = directBoss;
   }
 
-
   public String getBirthplace() {
     return birthplace;
   }
@@ -123,7 +115,6 @@ public class Staff {
   public void setBirthplace(String birthplace) {
     this.birthplace = birthplace;
   }
-
 
   public String getPosition() {
     return position;
@@ -133,7 +124,6 @@ public class Staff {
     this.position = position;
   }
 
-
   public String getPhoneNumber() {
     return phoneNumber;
   }
@@ -142,7 +132,6 @@ public class Staff {
     this.phoneNumber = phoneNumber;
   }
 
-
   public String getEmail() {
     return email;
   }
@@ -150,7 +139,6 @@ public class Staff {
   public void setEmail(String email) {
     this.email = email;
   }
-
 
   public String getPhotoUrl() {
     return photoUrl;

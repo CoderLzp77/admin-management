@@ -1,23 +1,25 @@
 package com.pojo;
 
 
+import java.sql.Timestamp;
+
 public class Askforleave {
 
   private int leaveId;
   private java.sql.Timestamp applyTime;
   private java.sql.Timestamp startTime;
   private java.sql.Timestamp endTime;
-  private long duration;
-  private long applicant;
+  private int duration;
+  private int applicant;
   private String category;
   private String reason;
-  private long state;
+  private int state;
   private String approvalId;
 
   public Askforleave() {
   }
 
-  public long getLeaveId() {
+  public int getLeaveId() {
     return leaveId;
   }
 
@@ -25,51 +27,45 @@ public class Askforleave {
     this.leaveId = leaveId;
   }
 
-
-  public java.sql.Timestamp getApplyTime() {
+  public Timestamp getApplyTime() {
     return applyTime;
   }
 
-  public void setApplyTime(java.sql.Timestamp applyTime) {
+  public void setApplyTime(Timestamp applyTime) {
     this.applyTime = applyTime;
   }
 
-
-  public java.sql.Timestamp getStartTime() {
+  public Timestamp getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(java.sql.Timestamp startTime) {
+  public void setStartTime(Timestamp startTime) {
     this.startTime = startTime;
   }
 
-
-  public java.sql.Timestamp getEndTime() {
+  public Timestamp getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(java.sql.Timestamp endTime) {
+  public void setEndTime(Timestamp endTime) {
     this.endTime = endTime;
   }
 
-
-  public long getDuration() {
+  public int getDuration() {
     return duration;
   }
 
-  public void setDuration(long duration) {
+  public void setDuration(int duration) {
     this.duration = duration;
   }
 
-
-  public long getApplicant() {
+  public int getApplicant() {
     return applicant;
   }
 
-  public void setApplicant(long applicant) {
+  public void setApplicant(int applicant) {
     this.applicant = applicant;
   }
-
 
   public String getCategory() {
     return category;
@@ -79,7 +75,6 @@ public class Askforleave {
     this.category = category;
   }
 
-
   public String getReason() {
     return reason;
   }
@@ -88,15 +83,13 @@ public class Askforleave {
     this.reason = reason;
   }
 
-
-  public long getState() {
+  public int getState() {
     return state;
   }
 
-  public void setState(long state) {
+  public void setState(int state) {
     this.state = state;
   }
-
 
   public String getApprovalId() {
     return approvalId;
@@ -105,5 +98,4 @@ public class Askforleave {
   public void setApprovalId(String approvalId) {
     this.approvalId = approvalId;
   }
-
 }

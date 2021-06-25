@@ -7,5 +7,12 @@ import java.util.List;
 
 @Repository
 public interface StaffDao {
-    List<Staff> findById(int id);
+    /**
+     * @paramid
+     * @return
+     * 通过员工id查询员工所有信息以及请假信息和直属部门
+     */
+    List<Staff> queryStaffById(int id,int pageNum,int pageSize);
+
+    List<Staff> queryAll();
 }
