@@ -1,16 +1,15 @@
 package com.service.Impl;
 
 import com.dao.StaffDao;
-import com.pojo.Askforleave;
 import com.pojo.Staff;
 import com.service.StaffService;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;
 
 import java.io.*;
+import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +35,7 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public String changeAvatar(MultipartFile file) throws IOException {
         String Base64=null;
+        String sub=null;
         String Filename = file.getOriginalFilename();
         InputStream inputStream = null;
         BufferedOutputStream bw=null;
@@ -45,7 +45,7 @@ public class StaffServiceImpl implements StaffService {
             e.printStackTrace();
         }
         try {
-            String path = "/home/fine/Avatar/";
+            String path = "/home/fine/桌面/application/app/static/";
             byte[] b=new byte[1024];
             int len;
             File tempFile =new File(path);
@@ -53,11 +53,14 @@ public class StaffServiceImpl implements StaffService {
                 tempFile.mkdir();
             }
             UUID uuid=UUID.randomUUID();
+            String name="1";
             String substring = null;
             if (Filename != null) {
                 substring = Filename.substring(Filename.lastIndexOf("."));
+                sub=substring;
             }
-            bw = new BufferedOutputStream(new FileOutputStream(path+uuid+substring));
+            Base64=uuid.toString();
+            bw = new BufferedOutputStream(new FileOutputStream(path+name+substring));
             if (inputStream != null) {
                 while ((len = inputStream.read(b))!=-1){
                     bw.write(b,0,len);
@@ -65,8 +68,8 @@ public class StaffServiceImpl implements StaffService {
             }else {
                 return null;
             }
-            BASE64Encoder encoder=new BASE64Encoder();
-            Base64 = encoder.encodeBuffer(b);
+         /*   BASE64Encoder encoder=new BASE64Encoder();
+            Base64 = encoder.encodeBuffer(b);*/
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -75,7 +78,7 @@ public class StaffServiceImpl implements StaffService {
                 bw.close();
             }
         }
-        return Base64;
+        return "ok";
     }
 
 /*    @Override
