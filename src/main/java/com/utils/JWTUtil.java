@@ -4,9 +4,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
+import org.springframework.stereotype.Component;
 import java.util.Date;
 
+@Component
 public class JWTUtil {
     private static final long NOW_TIME=System.currentTimeMillis();
     private static final long VALID_TIME = 1000 * 60 * 60 *24 * 3;

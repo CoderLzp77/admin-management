@@ -14,4 +14,6 @@ public interface StaffService {
     List<Staff>  queryApprove();
 
     String changeAvatar(MultipartFile file) throws IOException;
+
+    Staff queryUserAndPass(String username ,String password);
 }

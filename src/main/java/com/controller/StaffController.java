@@ -19,12 +19,18 @@ public class StaffController {
     private R r;
     @Autowired
     private StaffService staffService;
-    @GetMapping("/ queryStaffById")
+    /**
+     * 请假信息查询以及分页
+     */
+    @GetMapping("/queryStaffById")
     public R find(@RequestParam(value = "id",required = false) Integer id,
                   @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                   @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize){
         return r.success(staffService.queryStaffById(id,(pageNum-1)*pageSize, pageSize));
     }
+    /**
+     * 查询所有用户请假信息以及分页
+     */
     @GetMapping("/queryAll")
     public R findAll(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                      @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize){
@@ -39,9 +45,26 @@ public class StaffController {
         List<Staff> collect = staff.stream().skip((long) (pageNum - 1) * pageSize).limit(pageSize).collect(Collectors.toList());
         return r.success(collect);
     }
+    /**
+     * 上传头像
+     */
     @PostMapping("/changeAvatar")
     public R changeAvatar(@RequestParam(value = "file",required = false) MultipartFile file) throws IOException {
         String s = staffService.changeAvatar(file);
         return  s != null ? r.success(s).message("上传成功") : r.error().message("上传失败");
+    }
+
+    /**
+     * 用户登录
+     */
+    @PostMapping("/Login")
+    public R Login(@RequestParam(value = "username") String username,
+                   @RequestParam(value = "password") String password){
+        Staff staff = staffService.queryUserAndPass(username, password);
+        return staff != null ? r.success() : r.error().message("用户名或密码错误");
+    }
+    @GetMapping("/queryApprove")
+    public R queryApprove(){
+        return r.success(staffService.queryApprove());
     }
 }

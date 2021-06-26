@@ -3,17 +3,17 @@ package com.pojo;
 
 public class Reimbursementsubjects {
 
-  private long subjectId;
+  private int subjectId;
   private String subjectName;
 
   public Reimbursementsubjects() {
   }
 
-  public long getSubjectId() {
+  public int getSubjectId() {
     return subjectId;
   }
 
-  public void setSubjectId(long subjectId) {
+  public void setSubjectId(int subjectId) {
     this.subjectId = subjectId;
   }
 

@@ -1,0 +1,48 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AskforLeaveDao">
+    <resultMap id="LeaveMapper" type="com.pojo.Askforleave">
+            <id column="LeaveId" property="leaveId"/>
+            <result column="ApplyTime" property="applyTime"/>
+            <result column="StartTime" property="startTime"/>
+            <result column="EndTime" property="endTime"/>
+            <result column="Duration" property="duration"/>
+            <result column="Applicant" property="applicant"/>
+            <result column="Category" property="category"/>
+            <result column="Reason" property="reason"/>
+            <result column="State" property="state"/>
+            <result column="ApprovalId" property="approvalId"/>
+        <association property="staff" javaType="com.pojo.Staff">
+            <id column="StaffId" property="staffId"/>
+            <result column="UserName" property="userName"/>
+            <result column="Password" property="password"/>
+            <result column="State" property="state"/>
+            <result column="StaffName" property="staffName"/>
+            <result column="Gender" property="gender"/>
+            <result column="Birthday" property="birthday"/>
+            <result column="OrganizationId" property="organizationId"/>
+            <result column="JobId" property="jobId"/>
+            <result column="DirectBoss" property="directBoss"/>
+            <result column="Birthplace" property="birthplace"/>
+            <result column="Position" property="position"/>
+            <result column="PhoneNumber" property="phoneNumber"/>
+            <result column="Email" property="email"/>
+            <result column="PhotoUrl" property="photoUrl"/>
+        </association>
+    </resultMap>
+    <insert id="InsertLeave" parameterType="com.pojo.Askforleave" keyProperty="LeaveId">
+        insert into askforleave (ApplyTime,StartTime,EndTime,Duration,Applicant,Category,Reason,State,ApprovalId)
+        value (#{applyTime},#{startTime},#{endTime},#{duration},#{applicant},#{category},#{reason},#{state},#{approvalId})
+    </insert>
+    <update id="updateStateById" parameterType="java.lang.Integer">
+        update askforleave set State = #{arg0} where LeaveId = #{arg1}
+    </update>
+    <select id="queryAllLeave" resultType="com.pojo.Askforleave" resultMap="LeaveMapper">
+        select * from askforleave a,staff b where a.Applicant=b.StaffId
+    </select>
+    <select id="queryApprove" resultType="com.pojo.Askforleave" resultMap="LeaveMapper">
+        select * from askforleave a inner join staff b on a.Applicant=b.StaffId
+        where a.State=1
+    </select>
+</mapper>

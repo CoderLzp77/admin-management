@@ -25,6 +25,11 @@
      <result column="HigherOrgId" property="higherOrgId"/>
      <result column="Remark" property="remark"/>
     </association>
+<!--    <association column="job" property="job">
+     <id column="JobId" property="jobId"/>
+     <result column="JobName" property="jobName"/>
+     <result column="Responsibilities" property="responsibilities"/>
+    </association>-->
     <collection javaType="com.pojo.Askforleave" property="askforleave" >
         <id column="LeaveId" property="leaveId"/>
         <result column="ApplyTime" property="applyTime"/>
@@ -59,5 +64,8 @@
         left join organization c on c.OrganizationId =a.OrganizationId
         where b.State=1
         order by a.StaffId
+    </select>
+    <select id="queryUserAndPass" resultType="com.pojo.Staff">
+        select * from staff where UserName = #{arg0} and Password = #{arg1}
     </select>
 </mapper>

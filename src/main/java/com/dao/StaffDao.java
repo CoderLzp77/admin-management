@@ -17,4 +17,6 @@ public interface StaffDao {
     List<Staff> queryAll();
 
     List<Staff> queryApprove();
+
+    Staff queryUserAndPass(String username ,String password);
 }

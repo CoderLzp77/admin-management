@@ -2,7 +2,7 @@ package com.pojo;
 
 public class Job {
 
-  private long jobId;
+  private int jobId;
   private String jobName;
   private String responsibilities;
 
@@ -13,7 +13,7 @@ public class Job {
     return jobId;
   }
 
-  public void setJobId(long jobId) {
+  public void setJobId(int jobId) {
     this.jobId = jobId;
   }
 

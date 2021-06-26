@@ -1,11 +1,13 @@
 package com.pojo;
 
 
+import java.util.Date;
+
 public class Otherconsume {
 
   private long consumeId;
   private long tripId;
-  private java.sql.Timestamp consumeTime;
+  private Date consumeTime;
   private String consumeType;
   private double cost;
 
@@ -30,7 +32,7 @@ public class Otherconsume {
   }
 
 
-  public java.sql.Timestamp getConsumeTime() {
+  public Date getConsumeTime() {
     return consumeTime;
   }
 

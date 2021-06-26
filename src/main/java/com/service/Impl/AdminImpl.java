@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class AdminServiceImpl implements AdminService {
+public class AdminImpl implements AdminService {
     @Autowired
     private AdminDao adminDao;
     @Override

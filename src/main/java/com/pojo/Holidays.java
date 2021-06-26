@@ -1,39 +1,38 @@
 package com.pojo;
 
 
+import java.util.Date;
+
 public class Holidays {
 
-  private long holidayId;
-  private java.sql.Date holidayStartTime;
-  private java.sql.Date holidayEndTime;
+  private int holidayId;
+  private Date holidayStartTime;
+  private Date holidayEndTime;
 
   public Holidays() {
   }
 
-  public long getHolidayId() {
+  public int getHolidayId() {
     return holidayId;
   }
 
-  public void setHolidayId(long holidayId) {
+  public void setHolidayId(int holidayId) {
     this.holidayId = holidayId;
   }
 
-
-  public java.sql.Date getHolidayStartTime() {
+  public Date getHolidayStartTime() {
     return holidayStartTime;
   }
 
-  public void setHolidayStartTime(java.sql.Date holidayStartTime) {
+  public void setHolidayStartTime(Date holidayStartTime) {
     this.holidayStartTime = holidayStartTime;
   }
 
-
-  public java.sql.Date getHolidayEndTime() {
+  public Date getHolidayEndTime() {
     return holidayEndTime;
   }
 
-  public void setHolidayEndTime(java.sql.Date holidayEndTime) {
+  public void setHolidayEndTime(Date holidayEndTime) {
     this.holidayEndTime = holidayEndTime;
   }
-
 }

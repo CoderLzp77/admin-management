@@ -1,54 +1,60 @@
 package com.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Reimbursement {
 
-  private long reimId;
-  private long subjectId;
-  private long applicant;
-  private java.sql.Timestamp applyTime;
+  private int reimId;
+  private int subjectId;
+  private int applicant;
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  private Date applyTime;
   private double totalAmount;
-  private long state;
+  private int state;
   private String approvalId;
+  private Set<Expenseitem> expenseitems=new HashSet<>();
 
   public Reimbursement() {
   }
 
-  public long getReimId() {
+  public int getReimId() {
     return reimId;
   }
 
-  public void setReimId(long reimId) {
+  public void setReimId(int reimId) {
     this.reimId = reimId;
   }
 
-
-  public long getSubjectId() {
+  public int getSubjectId() {
     return subjectId;
   }
 
-  public void setSubjectId(long subjectId) {
+  public void setSubjectId(int subjectId) {
     this.subjectId = subjectId;
   }
 
-
-  public long getApplicant() {
+  public int getApplicant() {
     return applicant;
   }
 
-  public void setApplicant(long applicant) {
+  public void setApplicant(int applicant) {
     this.applicant = applicant;
   }
 
-
-  public java.sql.Timestamp getApplyTime() {
+  public Date getApplyTime() {
     return applyTime;
   }
 
-  public void setApplyTime(java.sql.Timestamp applyTime) {
+  public void setApplyTime(Date applyTime) {
     this.applyTime = applyTime;
   }
-
 
   public double getTotalAmount() {
     return totalAmount;
@@ -58,15 +64,13 @@ public class Reimbursement {
     this.totalAmount = totalAmount;
   }
 
-
-  public long getState() {
+  public int getState() {
     return state;
   }
 
-  public void setState(long state) {
+  public void setState(int state) {
     this.state = state;
   }
-
 
   public String getApprovalId() {
     return approvalId;
@@ -76,4 +80,11 @@ public class Reimbursement {
     this.approvalId = approvalId;
   }
 
+  public Set<Expenseitem> getExpenseitems() {
+    return expenseitems;
+  }
+
+  public void setExpenseitems(Set<Expenseitem> expenseitems) {
+    this.expenseitems = expenseitems;
+  }
 }

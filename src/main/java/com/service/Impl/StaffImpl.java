@@ -6,15 +6,12 @@ import com.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Encoder;
-
 import java.io.*;
-import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class StaffServiceImpl implements StaffService {
+public class StaffImpl implements StaffService {
     @Autowired
     private StaffDao staffDao;
     @Override
@@ -79,6 +76,11 @@ public class StaffServiceImpl implements StaffService {
             }
         }
         return "ok";
+    }
+
+    @Override
+    public Staff queryUserAndPass(String username, String password) {
+        return staffDao.queryUserAndPass(username, password);
     }
 
 /*    @Override

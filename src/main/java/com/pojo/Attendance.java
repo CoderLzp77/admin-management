@@ -1,52 +1,55 @@
 package com.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 public class Attendance {
 
-  private long staffId;
-  private long dateId;
-  private java.sql.Timestamp checkInTime;
-  private java.sql.Timestamp signOutTime;
+  private int staffId;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+  private Date dateId;
+  private Date checkInTime;
+  private Date signOutTime;
   private String remark;
 
   public Attendance() {
   }
 
-  public long getStaffId() {
+  public int getStaffId() {
     return staffId;
   }
 
-  public void setStaffId(long staffId) {
+  public void setStaffId(int staffId) {
     this.staffId = staffId;
   }
 
-
-  public long getDateId() {
+  public Date getDateId() {
     return dateId;
   }
 
-  public void setDateId(long dateId) {
+  public void setDateId(Date dateId) {
     this.dateId = dateId;
   }
 
-
-  public java.sql.Timestamp getCheckInTime() {
+  public Date getCheckInTime() {
     return checkInTime;
   }
 
-  public void setCheckInTime(java.sql.Timestamp checkInTime) {
+  public void setCheckInTime(Date checkInTime) {
     this.checkInTime = checkInTime;
   }
 
-
-  public java.sql.Timestamp getSignOutTime() {
+  public Date getSignOutTime() {
     return signOutTime;
   }
 
-  public void setSignOutTime(java.sql.Timestamp signOutTime) {
+  public void setSignOutTime(Date signOutTime) {
     this.signOutTime = signOutTime;
   }
-
 
   public String getRemark() {
     return remark;
@@ -55,5 +58,4 @@ public class Attendance {
   public void setRemark(String remark) {
     this.remark = remark;
   }
-
 }

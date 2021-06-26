@@ -1,43 +1,46 @@
 package com.pojo;
 
 
-public class Expenseitem {
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
-  private long reimId;
-  private long contentId;
-  private java.sql.Timestamp consumeTime;
+import java.util.Date;
+
+public class Expenseitem {
+  private int reimId;
+  private int contentId;
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  private Date consumeTime;
   private double cost;
   private String remark;
 
   public Expenseitem() {
   }
 
-  public long getReimId() {
+  public int getReimId() {
     return reimId;
   }
 
-  public void setReimId(long reimId) {
+  public void setReimId(int reimId) {
     this.reimId = reimId;
   }
 
-
-  public long getContentId() {
+  public int getContentId() {
     return contentId;
   }
 
-  public void setContentId(long contentId) {
+  public void setContentId(int contentId) {
     this.contentId = contentId;
   }
 
-
-  public java.sql.Timestamp getConsumeTime() {
+  public Date getConsumeTime() {
     return consumeTime;
   }
 
-  public void setConsumeTime(java.sql.Timestamp consumeTime) {
+  public void setConsumeTime(Date consumeTime) {
     this.consumeTime = consumeTime;
   }
-
 
   public double getCost() {
     return cost;
@@ -47,7 +50,6 @@ public class Expenseitem {
     this.cost = cost;
   }
 
-
   public String getRemark() {
     return remark;
   }
@@ -55,5 +57,4 @@ public class Expenseitem {
   public void setRemark(String remark) {
     this.remark = remark;
   }
-
 }

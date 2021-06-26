@@ -22,8 +22,9 @@ public class Staff {
   private String phoneNumber;
   private String email;
   private String photoUrl;
-  private Set<Askforleave> askforleave = new HashSet<>();
+  private Set<Askforleave> askforleave=new HashSet<>();
   private Organization organization;
+  private Job job;
 
   public Staff() {
   }
@@ -162,5 +163,13 @@ public class Staff {
 
   public void setOrganization(Organization organization) {
     this.organization = organization;
+  }
+
+  public Job getJob() {
+    return job;
+  }
+
+  public void setJob(Job job) {
+    this.job = job;
   }
 }

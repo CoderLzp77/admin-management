@@ -3,8 +3,8 @@ package com.pojo;
 
 public class Schedule {
 
-  private long scheduleId;
-  private long tripId;
+  private int scheduleId;
+  private int tripId;
   private String departure;
   private String destination;
   private String transport;
@@ -13,23 +13,21 @@ public class Schedule {
   public Schedule() {
   }
 
-  public long getScheduleId() {
+  public int getScheduleId() {
     return scheduleId;
   }
 
-  public void setScheduleId(long scheduleId) {
+  public void setScheduleId(int scheduleId) {
     this.scheduleId = scheduleId;
   }
 
-
-  public long getTripId() {
+  public int getTripId() {
     return tripId;
   }
 
-  public void setTripId(long tripId) {
+  public void setTripId(int tripId) {
     this.tripId = tripId;
   }
-
 
   public String getDeparture() {
     return departure;
@@ -39,7 +37,6 @@ public class Schedule {
     this.departure = departure;
   }
 
-
   public String getDestination() {
     return destination;
   }
@@ -47,7 +44,6 @@ public class Schedule {
   public void setDestination(String destination) {
     this.destination = destination;
   }
-
 
   public String getTransport() {
     return transport;
@@ -57,7 +53,6 @@ public class Schedule {
     this.transport = transport;
   }
 
-
   public double getCost() {
     return cost;
   }
@@ -65,5 +60,4 @@ public class Schedule {
   public void setCost(double cost) {
     this.cost = cost;
   }
-
 }

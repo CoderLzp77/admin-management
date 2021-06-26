@@ -4,6 +4,8 @@ import com.pojo.Askforleave;
 import org.apache.ibatis.annotations.Insert;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AskforLeaveDao {
     /**
@@ -13,7 +15,7 @@ public interface AskforLeaveDao {
      */
 /*    @Insert(value = "   insert into askforleave (ApplyTime,StartTime,EndTime,Duration,Applicant,Category,Reason,State,ApprovalId)\n" +
             "        value (#{applyTime},#{startTime},#{endTime},#{duration},#{applicant},#{category},#{reason},#{state},#{approvalId})")*/
-    int queryStaff(Askforleave askforleave);
+    int InsertLeave(Askforleave askforleave);
 
     /**
      *
@@ -23,4 +25,8 @@ public interface AskforLeaveDao {
      * 修改状态
      */
     int updateStateById(int state,int id);
+
+    List<Askforleave> queryAllLeave();
+
+    List<Askforleave> queryApprove();
 }

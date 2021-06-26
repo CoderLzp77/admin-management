@@ -2,19 +2,21 @@ package com.pojo;
 
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Askforleave {
 
   private int leaveId;
-  private java.sql.Timestamp applyTime;
-  private java.sql.Timestamp startTime;
-  private java.sql.Timestamp endTime;
+  private Date applyTime;
+  private Date startTime;
+  private Date endTime;
   private int duration;
   private int applicant;
   private String category;
   private String reason;
   private int state;
   private String approvalId;
+  private Staff staff;
 
   public Askforleave() {
   }
@@ -27,27 +29,27 @@ public class Askforleave {
     this.leaveId = leaveId;
   }
 
-  public Timestamp getApplyTime() {
+  public Date getApplyTime() {
     return applyTime;
   }
 
-  public void setApplyTime(Timestamp applyTime) {
+  public void setApplyTime(Date applyTime) {
     this.applyTime = applyTime;
   }
 
-  public Timestamp getStartTime() {
+  public Date getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(Timestamp startTime) {
+  public void setStartTime(Date startTime) {
     this.startTime = startTime;
   }
 
-  public Timestamp getEndTime() {
+  public Date getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(Timestamp endTime) {
+  public void setEndTime(Date endTime) {
     this.endTime = endTime;
   }
 
@@ -97,5 +99,13 @@ public class Askforleave {
 
   public void setApprovalId(String approvalId) {
     this.approvalId = approvalId;
+  }
+
+  public Staff getStaff() {
+    return staff;
+  }
+
+  public void setStaff(Staff staff) {
+    this.staff = staff;
   }
 }

@@ -1,76 +1,78 @@
 package com.pojo;
 
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Trip {
 
-  private long tripId;
-  private java.sql.Timestamp applyTime;
-  private java.sql.Timestamp startTime;
-  private java.sql.Timestamp endTime;
-  private long staffId;
-  private long duration;
+  private int tripId;
+  private Date applyTime;
+  private Date startTime;
+  private Date endTime;
+  private int staffId;
+  private int duration;
   private String category;
-  private double amount;
+  private int amount;
   private String reason;
-  private long state;
+  private int state;
   private String approvalId;
+  private Staff staff;
+  private Set<Schedule> schedule=new HashSet<>();
+  private Otherconsume otherconsume;
 
   public Trip() {
   }
 
-  public long getTripId() {
+  public int getTripId() {
     return tripId;
   }
 
-  public void setTripId(long tripId) {
+  public void setTripId(int tripId) {
     this.tripId = tripId;
   }
 
-
-  public java.sql.Timestamp getApplyTime() {
+  public Date getApplyTime() {
     return applyTime;
   }
 
-  public void setApplyTime(java.sql.Timestamp applyTime) {
+  public void setApplyTime(Date applyTime) {
     this.applyTime = applyTime;
   }
 
-
-  public java.sql.Timestamp getStartTime() {
+  public Date getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(java.sql.Timestamp startTime) {
+  public void setStartTime(Date startTime) {
     this.startTime = startTime;
   }
 
-
-  public java.sql.Timestamp getEndTime() {
+  public Date getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(java.sql.Timestamp endTime) {
+  public void setEndTime(Date endTime) {
     this.endTime = endTime;
   }
 
-
-  public long getStaffId() {
+  public int getStaffId() {
     return staffId;
   }
 
-  public void setStaffId(long staffId) {
+  public void setStaffId(int staffId) {
     this.staffId = staffId;
   }
 
-
-  public long getDuration() {
+  public int getDuration() {
     return duration;
   }
 
-  public void setDuration(long duration) {
+  public void setDuration(int duration) {
     this.duration = duration;
   }
-
 
   public String getCategory() {
     return category;
@@ -80,15 +82,13 @@ public class Trip {
     this.category = category;
   }
 
-
-  public double getAmount() {
+  public int getAmount() {
     return amount;
   }
 
-  public void setAmount(double amount) {
+  public void setAmount(int amount) {
     this.amount = amount;
   }
-
 
   public String getReason() {
     return reason;
@@ -98,15 +98,13 @@ public class Trip {
     this.reason = reason;
   }
 
-
-  public long getState() {
+  public int getState() {
     return state;
   }
 
-  public void setState(long state) {
+  public void setState(int state) {
     this.state = state;
   }
-
 
   public String getApprovalId() {
     return approvalId;
@@ -116,4 +114,27 @@ public class Trip {
     this.approvalId = approvalId;
   }
 
+  public Staff getStaff() {
+    return staff;
+  }
+
+  public void setStaff(Staff staff) {
+    this.staff = staff;
+  }
+
+  public Set<Schedule> getSchedule() {
+    return schedule;
+  }
+
+  public void setSchedule(Set<Schedule> schedule) {
+    this.schedule = schedule;
+  }
+
+  public Otherconsume getOtherconsume() {
+    return otherconsume;
+  }
+
+  public void setOtherconsume(Otherconsume otherconsume) {
+    this.otherconsume = otherconsume;
+  }
 }
