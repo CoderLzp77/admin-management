@@ -9,4 +9,6 @@ public interface TripDao {
     List<Trip> queryAllTrip();
 
     List<Trip> queryApproveTrip();
+
+    int AddTrip(Trip trip);
 }

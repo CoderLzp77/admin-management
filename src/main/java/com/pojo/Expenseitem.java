@@ -14,6 +14,7 @@ public class Expenseitem {
   private Date consumeTime;
   private double cost;
   private String remark;
+  private int applicant;
 
   public Expenseitem() {
   }
@@ -56,5 +57,13 @@ public class Expenseitem {
 
   public void setRemark(String remark) {
     this.remark = remark;
+  }
+
+  public int getApplicant() {
+    return applicant;
+  }
+
+  public void setApplicant(int applicant) {
+    this.applicant = applicant;
   }
 }

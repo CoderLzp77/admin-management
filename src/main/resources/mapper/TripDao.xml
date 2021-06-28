@@ -2,5 +2,47 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.TripDao">
-   <!-- <resultMap id="" type=""-->
+   <resultMap id="TripMapper" type="com.pojo.Trip">
+      <id column="TripId" property="tripId"/>
+      <result column="ApplyTime" property="applyTime"/>
+      <result column="StartTime" property="startTime"/>
+      <result column="EndTime" property="endTime"/>
+      <result column="StaffId" property="staffId"/>
+      <result column="Duration" property="duration"/>
+      <result column="Category" property="category"/>
+      <result column="Amount" property="amount"/>
+      <result column="Reason" property="reason"/>
+      <result column="State" property="state"/>
+      <result column="ApprovalId" property="approvalId"/>
+      <association column="staff" property="staff">
+         <id column="StaffId" property="staffId"/>
+         <result column="StaffName" property="staffName"/>
+         <result column="Gender" property="gender"/>
+         <result column="OrganizationId" property="organizationId"/>
+         <result column="DirectBoss" property="directBoss"/>
+      </association>
+      <association property="organization" javaType="com.pojo.Organization">
+         <id column="OrganizationId" property="organizationId"/>
+         <result column="Name" property="name"/>
+         <result column="HigherOrgId" property="higherOrgId"/>
+         <result column="Remark" property="remark"/>
+      </association>
+   </resultMap>
+   <select id="queryAllTrip" resultMap="TripMapper">
+      select a.*,c.*,s.* from trip a
+                                 left join staff s on s.StaffId=a.StaffId
+                                 left join organization c on c.OrganizationId=s.OrganizationId
+      order by a.ApplyTime
+   </select>
+   <select id="queryApproveTrip" resultMap="TripMapper">
+      select a.*,c.*,s.* from trip a
+      left join staff s on s.StaffId=a.StaffId
+      left join organization c on c.OrganizationId=s.OrganizationId
+      where a.State=0
+      order by a.ApplyTime
+   </select>
+   <insert id="AddTrip">
+      insert into trip (ApplyTime, StartTime, EndTime, StaffId, Duration, Category, Amount, Reason, State, ApprovalId) VALUES
+      (#{applytime},#{startTime},#{endTime},#{staffId},#{duration},#{category},#{amount},#{reason},#{state},#{appvovalId})
+   </insert>
 </mapper>

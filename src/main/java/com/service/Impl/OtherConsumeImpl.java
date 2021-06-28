@@ -11,6 +11,8 @@ import com.service.OtherConsumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OtherConsumeImpl implements OtherConsumeService {
     @Autowired
@@ -19,7 +21,7 @@ public class OtherConsumeImpl implements OtherConsumeService {
     public OtherConsumeImpl() {
     }
 
-    public int AddOtherConsume(Otherconsume otherconsume) {
-        return this.otherConsumeDao.AddOtherConsume(otherconsume);
+    public int AddOtherConsume(List<Otherconsume> otherconsumes) {
+        return this.otherConsumeDao.AddOtherConsume(otherconsumes);
     }
 }

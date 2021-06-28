@@ -1,6 +1,8 @@
 
 package com.service.Impl;
 
+import com.dao.OtherConsumeDao;
+import com.dao.ScheduleDao;
 import com.dao.TripDao;
 import com.dao.TripInfoDao;
 import com.pojo.Trip;
@@ -17,9 +19,13 @@ public class TripImpl implements TripService {
     private TripDao tripDao;
     @Autowired
     private TripInfoDao tripInfoDao;
+    @Autowired
+    private ScheduleDao scheduleDao;
+    @Autowired
+    private OtherConsumeDao otherConsumeDao;
 
     public List<Trip> queryAllTrip() {
-        return this.tripDao.queryAllTrip();
+        return tripDao.queryAllTrip();
     }
 
     public List<TripInfo> queryTripInfoById(int id) {
@@ -31,6 +37,21 @@ public class TripImpl implements TripService {
     }
 
     public int AddTrip(TripVo tripVo) {
-        return 1;
+        Trip trip=new Trip();
+        trip.setApprovalId(tripVo.getApprovalId());
+        trip.setCategory(tripVo.getCategory());
+        trip.setReason(tripVo.getReason());
+        trip.setDuration(tripVo.getDuration());
+        trip.setEndTime(tripVo.getEndTime());
+        trip.setStartTime(tripVo.getStartTime());
+        trip.setAmount(tripVo.getAmount());
+        trip.setState(0);
+        int i = tripDao.AddTrip(trip);
+        if (i>0){
+            scheduleDao.AddSchedule(tripVo.getSchedules());
+        }else {
+            return -1;
+        }
+        return otherConsumeDao.AddOtherConsume(tripVo.getOtherconsumes());
     }
 }

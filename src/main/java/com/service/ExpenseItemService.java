@@ -1,8 +1,12 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.service;
 
 import com.pojo.Expenseitem;
-import com.pojo.Vo.ReimbursementVo;
 
 public interface ExpenseItemService {
-    int ExpenseItemInfo(ReimbursementVo reimbursementVo);
+    int AddExpenseItem(Expenseitem expenseitem);
 }

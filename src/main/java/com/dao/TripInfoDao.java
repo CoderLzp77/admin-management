@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TripInfoDao {
-    List<TripInfo> queryTripInfoById(int var1);
+    List<TripInfo> queryTripInfoById(int id);
 }

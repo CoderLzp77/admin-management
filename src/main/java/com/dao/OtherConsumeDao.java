@@ -8,7 +8,9 @@ package com.dao;
 import com.pojo.Otherconsume;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OtherConsumeDao {
-    int AddOtherConsume(Otherconsume var1);
+    int AddOtherConsume(List<Otherconsume> otherconsumes);
 }

@@ -3,6 +3,8 @@ package com.service;
 
 import com.pojo.Otherconsume;
 
+import java.util.List;
+
 public interface OtherConsumeService {
-    int AddOtherConsume(Otherconsume var1);
+    int AddOtherConsume(List<Otherconsume> otherconsumes);
 }
