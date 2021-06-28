@@ -27,4 +27,14 @@
   select a.*,e.* from reimbursement a
   inner join expenseitem e on a.Applicant = e.Applicant
  </select>
+ <select id="queryApprove" resultType="com.pojo.Reimbursement" resultMap="ReimbursementMapper">
+ select a.*,e.* from reimbursement a
+ inner join expenseitem e on a.Applicant = e.Applicant
+ where a.State=0
+ </select>
+ <select id="queryReimById" resultType="com.pojo.Reimbursement" resultMap="ReimbursementMapper">
+ select a.*,e.* from reimbursement a
+ inner join expenseitem e on a.Applicant = e.Applicant
+ where a.Applicant=#{id}
+    </select>
 </mapper>

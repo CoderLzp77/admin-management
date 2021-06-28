@@ -14,4 +14,8 @@ public interface ReimbursementDao {
   int AddReimburse(Reimbursement var1);
 
   List<Reimbursement> queryAllReim();
+
+  List<Reimbursement> queryApprove();
+
+  List<Reimbursement> queryReimById(int id);
 }

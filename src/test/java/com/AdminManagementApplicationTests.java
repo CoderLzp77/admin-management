@@ -1,6 +1,7 @@
 package com;
 
 import com.dao.AdminDao;
+import com.dao.ReimbursementSubjectsDao;
 import com.pojo.Otherconsume;
 import com.service.OtherConsumeService;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,8 @@ import java.util.List;
 class AdminManagementApplicationTests {
    @Autowired
    private OtherConsumeService otherConsumeService;
-
+   @Autowired
+   private ReimbursementSubjectsDao reimbursementSubjectsDao;
     @Test
     void contextLoads() throws MalformedURLException {
    /*     String Filename="1232.com";
@@ -36,6 +38,10 @@ class AdminManagementApplicationTests {
         otherconsumes.add(otherconsume1);
         otherConsumeService.AddOtherConsume(otherconsumes);
 
+    }
+    @Test
+    public void Test6(){
+        System.out.println(reimbursementSubjectsDao.queryAllSub());
     }
 
 }

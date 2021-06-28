@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.pojo.Vo.ReimbursementSubVo;
 import com.pojo.Vo.ReimbursementVo;
 import com.service.ReimburseService;
 import com.utils.R;
@@ -21,5 +22,18 @@ public class ReimburseController {
     @GetMapping(value = "queryAllReim")
     public R queryAllReim(){
         return r.success(reimburseService.queryAllReim());
+    }
+    @PostMapping(value = "/AddReimbursementSub")
+    public R AddReimbursementSub(@RequestBody ReimbursementSubVo reimbursementSubVo){
+        int i = reimburseService.AddReimbursementSub(reimbursementSubVo);
+        return i>0? r.success():r.error();
+    }
+    @GetMapping(value = "/queryAllSub")
+    public R queryAllSub(){
+        return r.success(reimburseService.queryAllSub());
+    }
+    @GetMapping(value = "queryApprove")
+    public R queryApprove(){
+        return r.success(reimburseService.queryApprove());
     }
 }
