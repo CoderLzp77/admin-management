@@ -3,10 +3,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.ReimbursementDao">
  <resultMap id="ReimbursementMapper" type="com.pojo.Reimbursement">
-     
+     <id column="ReimId" property="reimId"/>
+     <result column="SubjectId" property="subjectId"/>
+     <result column="Applicant" property="applicant"/>
+     <result column="ApplyTime" property="applyTime"/>
+     <result column="TotalAmount" property="totalAmount"/>
+     <result column="State" property="state"/>
+     <result column="ApprovalId" property="approvalId"/>
+  <collection property="expenseitems" javaType="com.pojo.Expenseitem">
+     <id column="e_ReimId" property="e_ReimId"/>
+     <result column="ContentId" property="contentId"/>
+     <result column="ConsumeTIme" property="consumeTime"/>
+     <result column="Cost" property="cost"/>
+     <result column="Remark" property="remark"/>
+     <result column="Applicant" property="applicant"/>
+  </collection>
  </resultMap>
- <insert id="ReimbursementApply">
-  insert into reimbursement ( SubjectId, Applicant, ApplyTime, TotalAmount, State, ApprovalId) VALUE
-  (#{SubjectId},#{Applicant},#{ApplyTime},#{TotalAmount},#{State},#{ApprovalId})
+ <insert id="AddReimburse">
+  insert into reimbursement ( SubjectId, Applicant, ApplyTime, TotalAmount, State, ApprovalId) VALUES
+  (#{subjectId},#{applicant},#{applyTime},#{totalAmount},#{state},#{approvalId})
  </insert>
+ <select id="queryAllReim" resultType="com.pojo.Reimbursement" resultMap="ReimbursementMapper">
+  select a.*,e.* from reimbursement a
+  inner join expenseitem e on a.Applicant = e.Applicant
+ </select>
 </mapper>

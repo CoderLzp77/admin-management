@@ -20,8 +20,7 @@ public class Trip {
   private int state;
   private String approvalId;
   private Staff staff;
-  private Set<Schedule> schedule=new HashSet<>();
-  private Otherconsume otherconsume;
+  private Organization organization;
 
   public Trip() {
   }
@@ -122,19 +121,11 @@ public class Trip {
     this.staff = staff;
   }
 
-  public Set<Schedule> getSchedule() {
-    return schedule;
+  public Organization getOrganization() {
+    return organization;
   }
 
-  public void setSchedule(Set<Schedule> schedule) {
-    this.schedule = schedule;
-  }
-
-  public Otherconsume getOtherconsume() {
-    return otherconsume;
-  }
-
-  public void setOtherconsume(Otherconsume otherconsume) {
-    this.otherconsume = otherconsume;
+  public void setOrganization(Organization organization) {
+    this.organization = organization;
   }
 }

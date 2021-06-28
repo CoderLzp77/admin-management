@@ -30,8 +30,8 @@
    </resultMap>
    <select id="queryAllTrip" resultMap="TripMapper">
       select a.*,c.*,s.* from trip a
-                                 left join staff s on s.StaffId=a.StaffId
-                                 left join organization c on c.OrganizationId=s.OrganizationId
+      left join staff s on s.StaffId=a.StaffId
+      left join organization c on c.OrganizationId=s.OrganizationId
       order by a.ApplyTime
    </select>
    <select id="queryApproveTrip" resultMap="TripMapper">

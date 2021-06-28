@@ -5,7 +5,7 @@
     <insert id="AddSchedule">
     insert into schedule (TripId,Departure,Destination,Transport,Cost)
     values 
-    <foreach collection="list" item="schedules" index="index" separator=",">
+    <foreach collection="schedules" item="schedules" index="index" separator=",">
         (#{schedules.tripId},
          #{schedules.departure},
          #{schedules.destination},

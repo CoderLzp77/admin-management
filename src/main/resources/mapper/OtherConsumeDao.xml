@@ -4,7 +4,7 @@
 <mapper namespace="com.dao.OtherConsumeDao">
     <insert id="AddOtherConsume">
         insert into otherconsume (TripId,ConsumeTime,ConsumeType,Cost) values
-        <foreach collection="otherconsumes" item="item" index="index" separator=",">
+        <foreach collection="list" item="otherconsumes" index="index" separator=",">
             (#{otherconsumes.tripId},
             #{otherconsumes.consumeTime},
             #{otherconsumes.consumeType},

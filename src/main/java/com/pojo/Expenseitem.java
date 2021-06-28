@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class Expenseitem {
-  private int reimId;
+  private int e_ReimId;
   private int contentId;
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -19,12 +19,12 @@ public class Expenseitem {
   public Expenseitem() {
   }
 
-  public int getReimId() {
-    return reimId;
+  public int getE_ReimId() {
+    return e_ReimId;
   }
 
-  public void setReimId(int reimId) {
-    this.reimId = reimId;
+  public void setE_ReimId(int e_ReimId) {
+    this.e_ReimId = e_ReimId;
   }
 
   public int getContentId() {

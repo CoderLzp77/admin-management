@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReimbursementDao {
-  int ReimbursementApply(Reimbursement var1);
+  int AddReimburse(Reimbursement var1);
 
   List<Reimbursement> queryAllReim();
 }

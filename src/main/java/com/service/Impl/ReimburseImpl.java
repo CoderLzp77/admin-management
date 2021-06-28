@@ -29,7 +29,7 @@ public class ReimburseImpl implements ReimburseService {
     }
 
     @Transactional
-    public int ReimburseInfo(ReimbursementVo reimbursementVo) {
+    public int AddReimburse(ReimbursementVo reimbursementVo) {
         Expenseitem expenseitem = new Expenseitem();
         expenseitem.setRemark(reimbursementVo.getRemark());
         expenseitem.setContentId(reimbursementVo.getContentId());
@@ -48,11 +48,14 @@ public class ReimburseImpl implements ReimburseService {
             reimbursement.setSubjectId(reimbursementVo.getSubjectId());
             reimbursement.setTotalAmount(reimbursementVo.getTotalAmount());
             int i = this.expenseItemService.AddExpenseItem(expenseitem);
-            return i > 0 ? this.reimbursementDao.ReimbursementApply(reimbursement) : -1;
+            return i > 0 ? this.reimbursementDao.AddReimburse(reimbursement) : -1;
         }
     }
 
+    @Override
     public List<Reimbursement> queryAllReim() {
-        return this.reimbursementDao.queryAllReim();
+        return reimbursementDao.queryAllReim();
     }
+
+
 }

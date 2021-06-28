@@ -10,7 +10,7 @@ import com.pojo.Vo.ReimbursementVo;
 import java.util.List;
 
 public interface ReimburseService {
-    int ReimburseInfo(ReimbursementVo var1);
+    int AddReimburse(ReimbursementVo reimbursementVo);
 
     List<Reimbursement> queryAllReim();
 }
