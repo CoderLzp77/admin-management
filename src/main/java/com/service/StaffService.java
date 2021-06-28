@@ -16,4 +16,6 @@ public interface StaffService {
     String changeAvatar(MultipartFile file) throws IOException;
 
     Staff queryUserAndPass(String username ,String password);
+
+    int updateToken(String token, int id);
 }

@@ -68,4 +68,7 @@
     <select id="queryUserAndPass" resultType="com.pojo.Staff">
         select * from staff where UserName = #{arg0} and Password = #{arg1}
     </select>
+    <update id="updateToken">
+        update staff set token = #{arg0} where StaffId= #{arg1}
+    </update>
 </mapper>

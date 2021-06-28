@@ -3,6 +3,7 @@ package com.service.Impl;
 import com.dao.StaffDao;
 import com.pojo.Staff;
 import com.service.StaffService;
+import com.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,9 +79,20 @@ public class StaffImpl implements StaffService {
         return "ok";
     }
 
-    @Override
     public Staff queryUserAndPass(String username, String password) {
-        return staffDao.queryUserAndPass(username, password);
+        Staff staff = this.staffDao.queryUserAndPass(username, password);
+        if (staff != null) {
+            String token = JWTUtil.getToken(staff.getStaffId(), staff.getUserName(), staff.getPassword());
+            this.staffDao.updateToken(token, staff.getStaffId());
+            staff.setToken(token);
+            return staff;
+        } else {
+            return null;
+        }
+    }
+
+    public int updateToken(String token, int id) {
+        return staffDao.updateToken(token, id);
     }
 
 /*    @Override

@@ -11,12 +11,13 @@ import java.util.Date;
 public class JWTUtil {
     private static final long NOW_TIME=System.currentTimeMillis();
     private static final long VALID_TIME = 1000 * 60 * 60 *24 * 3;
-    public static String getToken(String username,String password){
+    public static String getToken(int id,String username,String password){
         JwtBuilder jwtBuilder= Jwts.builder()
                 .setIssuer(username)
                 .setSubject("leyou")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(NOW_TIME + VALID_TIME))
+                .claim("id",id)
                 .claim("username",username)
                 .claim("password",password)
                 .signWith(SignatureAlgorithm.HS256, "Fine");
