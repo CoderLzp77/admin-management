@@ -1,0 +1,16 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ScheduleDao">
+    <insert id="AddSchedule">
+    insert into schedule (TripId,Departure,Destination,Transport,Cost)
+    values 
+    <foreach collection="list" item="schedules" index="index" separator=",">
+        (#{schedules.tripId},
+         #{schedules.departure},
+         #{schedules.destination},
+         #{schedules.transport},
+         #{schedules.cost})
+    </foreach>
+    </insert>
+</mapper>

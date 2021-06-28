@@ -1,19 +1,22 @@
-package com.pojo;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
 
+package com.pojo;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Staff {
-
   private int staffId;
   private String userName;
   private String password;
   private int state;
   private String staffName;
   private String gender;
-  private java.sql.Timestamp birthday;
+  private Timestamp birthday;
   private int organizationId;
   private int jobId;
   private String directBoss;
@@ -22,7 +25,8 @@ public class Staff {
   private String phoneNumber;
   private String email;
   private String photoUrl;
-  private Set<Askforleave> askforleave=new HashSet<>();
+  private String token;
+  private Set<Askforleave> askforleave = new HashSet();
   private Organization organization;
   private Job job;
 
@@ -30,7 +34,7 @@ public class Staff {
   }
 
   public int getStaffId() {
-    return staffId;
+    return this.staffId;
   }
 
   public void setStaffId(int staffId) {
@@ -38,7 +42,7 @@ public class Staff {
   }
 
   public String getUserName() {
-    return userName;
+    return this.userName;
   }
 
   public void setUserName(String userName) {
@@ -46,7 +50,7 @@ public class Staff {
   }
 
   public String getPassword() {
-    return password;
+    return this.password;
   }
 
   public void setPassword(String password) {
@@ -54,7 +58,7 @@ public class Staff {
   }
 
   public int getState() {
-    return state;
+    return this.state;
   }
 
   public void setState(int state) {
@@ -62,7 +66,7 @@ public class Staff {
   }
 
   public String getStaffName() {
-    return staffName;
+    return this.staffName;
   }
 
   public void setStaffName(String staffName) {
@@ -70,7 +74,7 @@ public class Staff {
   }
 
   public String getGender() {
-    return gender;
+    return this.gender;
   }
 
   public void setGender(String gender) {
@@ -78,7 +82,7 @@ public class Staff {
   }
 
   public Timestamp getBirthday() {
-    return birthday;
+    return this.birthday;
   }
 
   public void setBirthday(Timestamp birthday) {
@@ -86,7 +90,7 @@ public class Staff {
   }
 
   public int getOrganizationId() {
-    return organizationId;
+    return this.organizationId;
   }
 
   public void setOrganizationId(int organizationId) {
@@ -94,7 +98,7 @@ public class Staff {
   }
 
   public int getJobId() {
-    return jobId;
+    return this.jobId;
   }
 
   public void setJobId(int jobId) {
@@ -102,7 +106,7 @@ public class Staff {
   }
 
   public String getDirectBoss() {
-    return directBoss;
+    return this.directBoss;
   }
 
   public void setDirectBoss(String directBoss) {
@@ -110,7 +114,7 @@ public class Staff {
   }
 
   public String getBirthplace() {
-    return birthplace;
+    return this.birthplace;
   }
 
   public void setBirthplace(String birthplace) {
@@ -118,7 +122,7 @@ public class Staff {
   }
 
   public String getPosition() {
-    return position;
+    return this.position;
   }
 
   public void setPosition(String position) {
@@ -126,7 +130,7 @@ public class Staff {
   }
 
   public String getPhoneNumber() {
-    return phoneNumber;
+    return this.phoneNumber;
   }
 
   public void setPhoneNumber(String phoneNumber) {
@@ -134,7 +138,7 @@ public class Staff {
   }
 
   public String getEmail() {
-    return email;
+    return this.email;
   }
 
   public void setEmail(String email) {
@@ -142,7 +146,7 @@ public class Staff {
   }
 
   public String getPhotoUrl() {
-    return photoUrl;
+    return this.photoUrl;
   }
 
   public void setPhotoUrl(String photoUrl) {
@@ -150,7 +154,7 @@ public class Staff {
   }
 
   public Set<Askforleave> getAskforleave() {
-    return askforleave;
+    return this.askforleave;
   }
 
   public void setAskforleave(Set<Askforleave> askforleave) {
@@ -158,7 +162,7 @@ public class Staff {
   }
 
   public Organization getOrganization() {
-    return organization;
+    return this.organization;
   }
 
   public void setOrganization(Organization organization) {
@@ -166,10 +170,18 @@ public class Staff {
   }
 
   public Job getJob() {
-    return job;
+    return this.job;
   }
 
   public void setJob(Job job) {
     this.job = job;
+  }
+
+  public String getToken() {
+    return this.token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
   }
 }

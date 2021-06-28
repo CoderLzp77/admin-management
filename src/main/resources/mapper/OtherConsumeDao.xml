@@ -1,0 +1,9 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OtherConsumeDao">
+    <insert id="AddOtherConsume">
+        insert into otherconsume (TripId,ConsumeTime,ConsumeType,Cost)
+        values (#{tripId},#{consumeTime},#{consumeType},#{cost})
+    </insert>
+</mapper>

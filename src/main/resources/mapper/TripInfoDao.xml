@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.TripInfoDao">
+    <resultMap id="queryAllTripInfo" type="com.pojo.TripInfo">
+            <id column="TripId" property="tripId"/>
+            <result column="ApplyTime" property="applyTime"/>
+            <result column="StartTime" property="startTime"/>
+            <result column="EndTime" property="endTime"/>
+            <result column="StaffId" property="staffId"/>
+            <result column="Duration" property="duration"/>
+            <result column="Category" property="category"/>
+            <result column="Amount" property="amount"/>
+            <result column="Reason" property="reason"/>
+            <result column="State" property="state"/>
+            <result column="ApprovalId" property="approvalId"/>
+        <collection property="otherconsumes" javaType="com.pojo.Otherconsume">
+            <id column="ConsumeId" property="consumeId"/>
+            <result column="TripId" property="tripId"/>
+            <result column="ConsumeTime" property="consumeTime"/>
+            <result column="ConsumeType" property="consumeType"/>
+            <result column="Cost" property="cost"/>
+        </collection>
+        <collection property="schedules" javaType="com.pojo.Schedule">
+            <id column="ScheduleId" property="scheduleId"/>
+            <result column="TripId" property="tripId"/>
+            <result column="Departure" property="departure"/>
+            <result column="Destination" property="destination"/>
+            <result column="Transport" property="transport"/>
+            <result column="Cost" property="cost"/>
+        </collection>
+    </resultMap>
+    <select id="queryTripInfoById" resultMap="queryAllTripInfo">
+        select * from trip  a
+        left join otherconsume o on a.StaffId = o.TripId
+        left join schedule s on a.StaffId = s.TripId
+        where a.StaffId = #{id}
+    </select>
+</mapper>
