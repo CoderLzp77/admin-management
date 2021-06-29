@@ -74,7 +74,8 @@ public class ReimburseImpl implements ReimburseService {
         Reimbursementsubjects reimbursementsubjects=new Reimbursementsubjects();
         reimbursementsubjects.setSubjectName(reimbursementSubVo.getSubjectName());
         List<Reimbursementsubjects> reimbursementsubjects1 = reimbursementSubjectsDao.queryAllSub();
-        List<String> collect = reimbursementsubjects1.stream().map(Reimbursementsubjects::getSubjectName).collect(Collectors.toList());
+        List<String> collect = reimbursementsubjects1.stream().map(Reimbursementsubjects::getSubjectName)
+        .collect(Collectors.toList());
         if (collect.contains(reimbursementSubVo.getSubjectName())){
            return reimbursementContentDao.AddReimbursementContent(reimbursementcontent);
         }else {
@@ -96,6 +97,11 @@ public class ReimburseImpl implements ReimburseService {
     @Override
     public List<Reimbursement> queryReimById(int id) {
         return reimbursementDao.queryReimById(id);
+    }
+
+    @Override
+    public List<Reimbursement> queryMyReim(Integer state,Integer subjectId,Integer totalAmount,int applicant) {
+        return reimbursementDao.queryMyReim(state, subjectId, totalAmount, applicant);
     }
 
 

@@ -32,8 +32,19 @@ public class ReimburseController {
     public R queryAllSub(){
         return r.success(reimburseService.queryAllSub());
     }
-    @GetMapping(value = "queryApprove")
+    @GetMapping(value = "/queryApprove")
     public R queryApprove(){
         return r.success(reimburseService.queryApprove());
+    }
+    @GetMapping(value = "/queryReimById")
+    public R queryReimById(@RequestParam(value = "id") int id){
+        return  r.success(reimburseService.queryReimById(id));
+    }
+    @GetMapping(value = "/queryMyReim")
+    public R queryMyReim(@RequestParam(value = "state",required = false) Integer state,
+                         @RequestParam(value = "subjectId",required = false) Integer subjectId,
+                         @RequestParam(value = "totalAmount",required = false) Integer totalAmount,
+                         @RequestParam(value = "applicant") int applicant){
+        return r.success(reimburseService.queryMyReim(state, subjectId, totalAmount,applicant));
     }
 }

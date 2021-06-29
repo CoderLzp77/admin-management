@@ -36,5 +36,24 @@
  select a.*,e.* from reimbursement a
  inner join expenseitem e on a.Applicant = e.Applicant
  where a.Applicant=#{id}
-    </select>
+ </select>
+ <select id="queryMyReim" resultMap="ReimbursementMapper">
+ select * from reimbursement a
+ inner join expenseitem b
+ on a.Applicant=b.Applicant
+<where>
+    <if test="state!=null and state!=''">
+        and a.State=#{state}
+    </if>
+    <if test="subjectId!=null and subjectId!=''">
+        and a.SubjectId=#{subjectId}
+    </if>
+    <if test="totalAmount!=null and totalAmount!=''">
+        and a.TotalAmount >= #{totalAmount}
+    </if>
+    <if test="applicant!=null and applicant!=''">
+        and a.Applicant=#{applicant}
+    </if>
+</where>
+ </select>
 </mapper>

@@ -50,4 +50,6 @@ public interface ReimburseService {
      * @return
      */
     List<Reimbursement> queryReimById(int id);
+
+    List<Reimbursement> queryMyReim(Integer state,Integer subjectId,Integer totalAmount,int applicant);
 }
