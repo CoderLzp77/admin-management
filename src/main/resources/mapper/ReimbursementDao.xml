@@ -10,14 +10,14 @@
      <result column="TotalAmount" property="totalAmount"/>
      <result column="State" property="state"/>
      <result column="ApprovalId" property="approvalId"/>
-  <collection property="expenseitems" javaType="com.pojo.Expenseitem">
-     <id column="e_ReimId" property="e_ReimId"/>
-     <result column="ContentId" property="contentId"/>
-     <result column="ConsumeTIme" property="consumeTime"/>
-     <result column="Cost" property="cost"/>
-     <result column="Remark" property="remark"/>
-     <result column="Applicant" property="applicant"/>
-  </collection>
+      <collection property="expenseitems" javaType="com.pojo.Expenseitem">
+         <id column="e_ReimId" property="e_ReimId"/>
+         <result column="ContentId" property="contentId"/>
+         <result column="ConsumeTIme" property="consumeTime"/>
+         <result column="Cost" property="cost"/>
+         <result column="Remark" property="remark"/>
+         <result column="Applicant" property="applicant"/>
+      </collection>
  </resultMap>
  <insert id="AddReimburse">
   insert into reimbursement ( SubjectId, Applicant, ApplyTime, TotalAmount, State, ApprovalId) VALUES

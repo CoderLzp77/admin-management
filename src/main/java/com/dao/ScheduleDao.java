@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ScheduleDao {
-    int AddSchedule(List<Schedule> var1);
+    int AddSchedule(List<Schedule> schedules);
 }

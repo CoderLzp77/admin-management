@@ -67,4 +67,11 @@ public class StaffController {
     public R queryApprove(){
         return r.success(staffService.queryApprove());
     }
+
+    @GetMapping("/queryMyLeave")
+    public R queryMyLeave(@RequestParam(value = "state",required = false) Integer state,
+                          @RequestParam(value = "category",required = false) String category,
+                          @RequestParam(value = "duration",required = false) Integer duration){
+        return r.success(staffService.queryMyLeave(state, category, duration));
+    }
 }

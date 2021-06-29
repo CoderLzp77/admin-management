@@ -31,18 +31,39 @@
             <result column="PhotoUrl" property="photoUrl"/>
         </association>
     </resultMap>
+   <!-- 新增请假-->
     <insert id="InsertLeave" parameterType="com.pojo.Askforleave" keyProperty="LeaveId">
         insert into askforleave (ApplyTime,StartTime,EndTime,Duration,Applicant,Category,Reason,State,ApprovalId)
         value (#{applyTime},#{startTime},#{endTime},#{duration},#{applicant},#{category},#{reason},#{state},#{approvalId})
     </insert>
+    <!--修改批准状态-->
     <update id="updateStateById" parameterType="java.lang.Integer">
         update askforleave set State = #{arg0} where LeaveId = #{arg1}
     </update>
+    <!--查询所有请假-->
     <select id="queryAllLeave" resultType="com.pojo.Askforleave" resultMap="LeaveMapper">
         select * from askforleave a,staff b where a.Applicant=b.StaffId
     </select>
+   <!-- 查看所有未批准请假-->
     <select id="queryApprove" resultType="com.pojo.Askforleave" resultMap="LeaveMapper">
         select * from askforleave a inner join staff b on a.Applicant=b.StaffId
-        where a.State=1
+        where a.State=0
+    </select>
+
+    <!--查看我审批的假-->
+    <select id="queryMyAcc" resultType="com.pojo.Askforleave" resultMap="LeaveMapper">
+        select * from am_system.askforleave a, am_system.staff b where a.ApprovalId=#{approvalId} and a.Applicant=b.StaffId;
+    </select>
+    <!--查看我的请假-->
+    <select id="queryMyAsk" resultType="com.pojo.Askforleave" resultMap="LeaveMapper">
+        select * from am_system.askforleave a, am_system.staff b where a.Applicant=#{applicant} and b.StaffId=${staffId};
+    </select>
+    <!--查看部门请假-->
+    <select id="queryOrgAsk" resultType="com.pojo.Askforleave" resultMap="LeaveMapper">
+        select * from am_system.askforleave a, am_system.staff b where b.StaffId=a.Applicant;
+    </select>
+    <!--查看下属请假-->
+    <select id="queryMyEmpAsk" resultType="com.pojo.Askforleave" resultMap="LeaveMapper">
+        select * from am_system.askforleave a, am_system.staff b where b.DirectBoss=#{directBoss} and a.Applicant=b.StaffId;
     </select>
 </mapper>

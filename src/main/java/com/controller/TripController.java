@@ -30,4 +30,10 @@ public class TripController {
     public R queryApprove(){
         return r.success(tripService.queryApproveTrip());
     }
+    @GetMapping("/querySubordinateTrip")
+    public R querySubordinateTrip(@RequestParam(value = "state",required = false) Integer state,
+                                  @RequestParam(value = "category",required = false) String category,
+                                  @RequestParam(value = "duration",required = false) Integer duration){
+        return r.success(tripService.querySubordinateTrip(state, category, duration));
+    }
 }

@@ -43,7 +43,7 @@
         <result column="ApprovalId" property="approvalId"/>
     </collection>
     </resultMap>
-
+<!--    通过id查询员工请假信息-->
     <select id="queryStaffById" resultType="com.pojo.Staff" resultMap="StaffMapper">
         select a.*,b.*,c.* from staff a
         inner join askforleave b on a.StaffId = b.Applicant
@@ -52,12 +52,14 @@
         order by a.StaffId
         limit #{arg1},#{arg2}
     </select>
+ <!--   查询所有员工请假信息-->
     <select id="queryAll" resultMap="StaffMapper">
         select a.*,b.*,c.* from staff a
         left join askforleave b on a.StaffId = b.Applicant
         left join organization c on c.OrganizationId =a.OrganizationId
         order by a.StaffId
     </select>
+<!--    查询所有未批准请假-->
     <select id="queryApprove" resultMap="StaffMapper">
         select a.*,b.*,c.* from staff a
         left join askforleave b on a.StaffId=b.Applicant
@@ -65,10 +67,28 @@
         where b.State=1
         order by a.StaffId
     </select>
+<!--    登录验证-->
     <select id="queryUserAndPass" resultType="com.pojo.Staff">
         select * from staff where UserName = #{arg0} and Password = #{arg1}
     </select>
+<!--    登陆后更新token-->
     <update id="updateToken">
         update staff set token = #{arg0} where StaffId= #{arg1}
     </update>
+    <select id="queryMyLeave" resultMap="StaffMapper">
+        select a.*,b.*,c.* from staff a
+        left join askforleave b on a.StaffId=b.Applicant
+        left join organization c on c.OrganizationId =a.OrganizationId
+<where>
+    <if test="state!=null and state!=''">
+        and a.State=#{state}
+    </if>
+    <if test="category!=null and category!=''">
+        and b.Category=#{category}
+    </if>
+    <if test="duration!=null and duration!=''">
+        and b.Duration=#{duration}
+    </if>
+</where>
+    </select>
 </mapper>

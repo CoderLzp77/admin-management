@@ -37,4 +37,26 @@ public class LeaveController {
     public R queryApprove(){
         return r.success(leaveService.queryApprove());
     }
+    //查看我审批的假
+    @GetMapping("/queryMyAcc")
+    public R queryMyAcc(@RequestParam(value = "staffId") Integer staffId){
+        return r.success(leaveService.queryMyAcc(staffId));
+    }
+    //查看我的请假
+    @GetMapping("/queryMyAsk")
+    public R queryMyAsk(@RequestParam(value = "staffId") Integer staffId){
+        return r.success(leaveService.queryMyAsk(staffId));
+    }
+    //查看部门请假
+    @GetMapping("/queryOrgAsk")
+    public R queryOrgAsk(){
+        return r.success(leaveService.queryOrgAsk());
+    }
+    //查看下属请假
+    @GetMapping("/queryMyEmpAsk")
+    public R queryMyEmpAsk(@RequestParam(value = "staffId") Integer staffId){
+        return r.success(leaveService.queryMyEmpAsk(staffId));
+    }
+    //模糊查假
+
 }

@@ -34,4 +34,24 @@ public class LeaveImpl implements LeaveService {
     public List<Askforleave> queryApprove() {
         return askforLeaveDao.queryApprove();
     }
+
+    @Override
+    public List<Askforleave> queryMyAcc(int staffId) {
+        return askforLeaveDao.queryMyAcc(staffId);
+    }
+
+    @Override
+    public List<Askforleave> queryMyAsk(int staffId) {
+        return askforLeaveDao.queryMyAsk(staffId);
+    }
+
+    @Override
+    public List<Askforleave> queryOrgAsk() {
+        return askforLeaveDao.queryOrgAsk();
+    }
+
+    @Override
+    public List<Askforleave> queryMyEmpAsk(int staffId) {
+        return askforLeaveDao.queryMyEmpAsk(staffId);
+    }
 }

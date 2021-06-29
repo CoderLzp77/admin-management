@@ -95,6 +95,11 @@ public class StaffImpl implements StaffService {
         return staffDao.updateToken(token, id);
     }
 
+    @Override
+    public List<Staff> queryMyLeave(Integer state, String category, Integer duration) {
+        return staffDao.queryMyLeave(state, category, duration);
+    }
+
 /*    @Override
     public List<Staff> Approve() {
         List<Staff> staff = staffDao.queryAll();

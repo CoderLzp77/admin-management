@@ -54,4 +54,9 @@ public class TripImpl implements TripService {
         }
         return otherConsumeDao.AddOtherConsume(tripVo.getOtherconsumes());
     }
+
+    @Override
+    public List<Trip> querySubordinateTrip(Integer state, String category, Integer duration) {
+        return tripDao.querySubordinateTrip(state, category, duration);
+    }
 }

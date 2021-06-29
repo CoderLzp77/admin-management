@@ -26,7 +26,24 @@ public interface AskforLeaveDao {
      */
     int updateStateById(int state,int id);
 
+    /**
+     * 查询所有请假
+     * @return
+     */
     List<Askforleave> queryAllLeave();
 
+    /**
+     * 查询请假未批准
+     * @return
+     */
     List<Askforleave> queryApprove();
+
+    List<Askforleave> queryMyAcc(int staffId);
+
+    List<Askforleave> queryMyAsk(int staffId);
+
+    List<Askforleave> queryOrgAsk();
+
+    List<Askforleave> queryMyEmpAsk(int staffId);
+
 }

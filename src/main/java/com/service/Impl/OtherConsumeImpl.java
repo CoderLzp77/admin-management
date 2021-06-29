@@ -18,9 +18,6 @@ public class OtherConsumeImpl implements OtherConsumeService {
     @Autowired
     private OtherConsumeDao otherConsumeDao;
 
-    public OtherConsumeImpl() {
-    }
-
     public int AddOtherConsume(List<Otherconsume> otherconsumes) {
         return this.otherConsumeDao.AddOtherConsume(otherconsumes);
     }
