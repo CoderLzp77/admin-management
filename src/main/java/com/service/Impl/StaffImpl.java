@@ -6,6 +6,7 @@ import com.service.StaffService;
 import com.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.List;
@@ -21,8 +22,8 @@ public class StaffImpl implements StaffService {
     }
 
     @Override
-    public List<Staff> queryAll() {
-        return staffDao.queryAll();
+    public List<Staff> queryAll(String userName) {
+        return staffDao.queryAll(userName);
     }
 
     @Override
@@ -100,18 +101,28 @@ public class StaffImpl implements StaffService {
         return staffDao.queryMyLeave(state, category, duration);
     }
 
-/*    @Override
-    public List<Staff> Approve() {
-        List<Staff> staff = staffDao.queryAll();
-        staff.forEach(item->{
-            Set<Askforleave> askforleave = item.getAskforleave();
-            Set<Askforleave> collect = askforleave.stream().
-            filter(n -> n.getState() == 1).collect(Collectors.toSet());
-            item.setAskforleave(collect);
-        });
-        return null;
-    }*/
+    @Override
+    @Transactional
+    public int addNewStaff(Staff newStaff) {
+        return staffDao.addNewStaff(newStaff);
+    }
 
+    @Override
+    @Transactional
+    public int rePassword(int staffId) {
+        return staffDao.rePassword(staffId);
+    }
 
+    @Override
+    @Transactional
+    public int deleteStaffById(int staffId) {
+        return staffDao.deleteStaffById(staffId);
+    }
+
+    @Override
+    @Transactional
+    public int updateStaffInfo(Staff staff) {
+        return staffDao.updateStaffInfo(staff);
+    }
 
 }

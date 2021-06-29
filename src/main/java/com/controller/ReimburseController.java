@@ -1,11 +1,15 @@
 package com.controller;
 
+import com.pojo.Reimbursement;
 import com.pojo.Vo.ReimbursementSubVo;
 import com.pojo.Vo.ReimbursementVo;
 import com.service.ReimburseService;
 import com.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("Reimburse")
@@ -20,8 +24,12 @@ public class ReimburseController {
     return r.success(reimburseService.AddReimburse(reimbursementVo));
     }
     @GetMapping(value = "queryAllReim")
-    public R queryAllReim(){
-        return r.success(reimburseService.queryAllReim());
+    public R queryAllReim(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+                          @RequestParam(value = "pageSize",defaultValue = "1") Integer pageSize){
+        List<Reimbursement> reimbursements = reimburseService.queryAllReim();
+        List<Reimbursement> collect = reimbursements.stream().
+        skip((long) (pageNum - 1) * pageSize).limit(pageSize).collect(Collectors.toList());
+        return r.success(collect);
     }
     @PostMapping(value = "/AddReimbursementSub")
     public R AddReimbursementSub(@RequestBody ReimbursementSubVo reimbursementSubVo){

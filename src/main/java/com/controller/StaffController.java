@@ -29,12 +29,13 @@ public class StaffController {
         return r.success(staffService.queryStaffById(id,(pageNum-1)*pageSize, pageSize));
     }
     /**
-     * 查询所有用户请假信息以及分页
+     * 查询所有员工全部信息以及分页
      */
     @GetMapping("/queryAll")
     public R findAll(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
-                     @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize){
-        List<Staff> staff = staffService.queryAll();
+                     @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
+                     @RequestParam(value = "userName",required = false) String userName){
+        List<Staff> staff = staffService.queryAll(userName);
         List<Staff> collect = staff.stream().skip((long) (pageNum - 1) * pageSize).limit(pageSize).collect(Collectors.toList());
         return r.success(collect);
     }
@@ -73,5 +74,35 @@ public class StaffController {
                           @RequestParam(value = "category",required = false) String category,
                           @RequestParam(value = "duration",required = false) Integer duration){
         return r.success(staffService.queryMyLeave(state, category, duration));
+    }
+    //TODO 添加员工功能
+    @PostMapping(value ="/AddStaff")
+    public R addNewStaff(@RequestBody Staff staff) {
+        int result = staffService.addNewStaff(staff);
+        return result >0 ? r.success():r.error();
+    }
+    //TODO 重置密码功能
+    @PutMapping(value ="/rePassWord")
+    public R rePassWord(@RequestParam("staffId") Integer staffId)
+    {
+        int result = staffService.rePassword(staffId);
+        return result > 0 ? r.success():r.error();
+    }
+    //TODO 删除员工
+    @DeleteMapping(value = "/deleteStaff/{staffId}")
+    public R deleteStaff(@PathVariable(value = "staffId") int staffId){
+        int i = staffService.deleteStaffById(staffId);
+        return i > 0 ? r.success():r.error();
+    }
+    //TODO 修改员工信息
+    @RequestMapping(value = "dateStaffInfo", method = RequestMethod.POST)
+    public R dateStaffInfo(@RequestBody Staff staff){
+        if(staffService.updateStaffInfo(staff)>1)
+        {
+            return r.success();
+        }else
+        {
+            return r.error();
+        }
     }
 }

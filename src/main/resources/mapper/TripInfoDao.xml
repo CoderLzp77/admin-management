@@ -36,4 +36,16 @@
         left join schedule s on a.StaffId = s.TripId
         where a.StaffId = #{id}
     </select>
+    <!--出差情况-->
+    <!--所有出差记录-->
+    <select id="queryTripAll" resultMap="queryAllTripInfo" >
+        SELECT * FROM trip t,schedule s WHERE t.staffid=#{arg0} AND t.TripId=s.TripId LIMIT #{arg1},#{arg2}
+    </select>
+    <!--查看该月的出差记录-->
+    <select id="queryTripAllByTime"  resultMap="queryAllTripInfo">
+        SELECT * FROM trip t,schedule s WHERE t.staffid=#{arg0}
+        AND t.TripId=s.TripId
+        AND UNIX_TIMESTAMP(t.StartTime)>=UNIX_TIMESTAMP(#{arg1})
+        AND UNIX_TIMESTAMP(#{arg2})>UNIX_TIMESTAMP(t.EndTime) LIMIT #{arg3},#{arg4}
+    </select>
 </mapper>

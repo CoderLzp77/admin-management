@@ -5,7 +5,11 @@
 
 package com.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +20,9 @@ public class Staff {
   private int state;
   private String staffName;
   private String gender;
-  private Timestamp birthday;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+  private Date birthday;
   private int organizationId;
   private int jobId;
   private String directBoss;
@@ -81,11 +87,11 @@ public class Staff {
     this.gender = gender;
   }
 
-  public Timestamp getBirthday() {
-    return this.birthday;
+  public Date getBirthday() {
+    return birthday;
   }
 
-  public void setBirthday(Timestamp birthday) {
+  public void setBirthday(Date birthday) {
     this.birthday = birthday;
   }
 

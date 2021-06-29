@@ -1,12 +1,16 @@
 package com.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Holidays {
 
   private int holidayId;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
   private Date holidayStartTime;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
   private Date holidayEndTime;
 
   public Holidays() {

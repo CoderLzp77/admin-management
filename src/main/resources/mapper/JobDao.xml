@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.JobDao">
+    <!--将在表Job中查询到的ResultSet装入Job实体类中，实例化对象-->
+    <resultMap id="jobMap" type="com.pojo.Job">
+        <id property="jobId" column="jobId"/>
+        <result property="jobName" column="jobName"/>
+        <result property="responsibilities" column="responsibilities"/>
+    </resultMap>
+
+
+    <!--通过staffId查询员工的职位-->
+    <select id="queryJobById" resultMap="jobMap" resultType="com.pojo.Job" parameterType="int">
+        select * from am_system.job where JobId=${value};
+    </select>
+
+    <!--通过职位名称查询工作的工号-->
+    <select id="queryJobId" resultType="int" parameterType="String">
+        select JobId from am_system.job where JobName LIKE concat('%',#{value},'%');
+    </select>
+
+    <!--分页查询岗位信息-->
+    <select id="queryJobLimit" resultMap="jobMap" resultType="com.pojo.Job" parameterType="int">
+        select * from am_system.job limit 5 offset ${value}
+    </select>
+
+    <!--添加新岗位类型-->
+    <insert id="addNewJob" parameterType="com.pojo.Job">
+        INSERT INTO am_system.job( jobId , JobName, Responsibilities ) VALUES( #{jobId}, #{jobName}, #{responsibilities} );
+    </insert>
+
+    <!--删除现有岗位-->
+    <delete id="deleteJobById" parameterType="int">
+        delete from am_system.job where JobId=#{value};
+    </delete>
+
+    <!--修改现有岗位-->
+    <update id="updateJob" parameterType="com.pojo.Job">
+        UPDATE am_system.job SET JobName = #{jobName}, Responsibilities = #{responsibilities} WHERE JobId = #{jobId}
+    </update>
+</mapper>

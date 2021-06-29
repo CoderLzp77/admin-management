@@ -25,11 +25,11 @@
      <result column="HigherOrgId" property="higherOrgId"/>
      <result column="Remark" property="remark"/>
     </association>
-<!--    <association column="job" property="job">
+    <association column="job" property="job">
      <id column="JobId" property="jobId"/>
      <result column="JobName" property="jobName"/>
      <result column="Responsibilities" property="responsibilities"/>
-    </association>-->
+    </association>
     <collection javaType="com.pojo.Askforleave" property="askforleave" >
         <id column="LeaveId" property="leaveId"/>
         <result column="ApplyTime" property="applyTime"/>
@@ -45,18 +45,21 @@
     </resultMap>
 <!--    通过id查询员工请假信息-->
     <select id="queryStaffById" resultType="com.pojo.Staff" resultMap="StaffMapper">
-        select a.*,b.*,c.* from staff a
+        select a.*,b.*,c.*,j.* from staff a
         inner join askforleave b on a.StaffId = b.Applicant
         inner join organization c on c.OrganizationId =
         any (select a.OrganizationId from staff where a.StaffId = #{arg0})
+        inner join job j on a.JobId = j.JobId
         order by a.StaffId
         limit #{arg1},#{arg2}
     </select>
  <!--   查询所有员工请假信息-->
     <select id="queryAll" resultMap="StaffMapper">
-        select a.*,b.*,c.* from staff a
+        select a.*,b.*,c.*,j.* from staff a
         left join askforleave b on a.StaffId = b.Applicant
         left join organization c on c.OrganizationId =a.OrganizationId
+        left join job j on a.JobId = j.JobId
+        where a.StaffName like concat('%',#{userName},'%')
         order by a.StaffId
     </select>
 <!--    查询所有未批准请假-->
@@ -91,4 +94,13 @@
     </if>
 </where>
     </select>
+    <insert id="addNewStaff" parameterType="com.pojo.Staff">
+        insert into am_system.staff( UserName, Password, State, StaffName, Gender, Birthday, OrganizationId, JobId, DirectBoss, Birthplace, Position, PhoneNumber, Email, PhotoUrl)
+        values( #{userName}, #{password}, #{state}, #{staffName}, #{gender}, #{birthday}, #{organizationId}, #{jobId},
+                #{directBoss}, #{birthplace}, #{position}, #{phoneNumber}, #{email}, #{photoUrl});
+    </insert>
+    <!--重置密码-->
+    <update id="rePassword" parameterType="int" >
+        UPDATE am_system.staff SET Password='123456' where StaffId=#{staffId};
+    </update>
 </mapper>

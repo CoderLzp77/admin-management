@@ -4,6 +4,7 @@ import com.pojo.Askforleave;
 import org.apache.ibatis.annotations.Insert;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -45,5 +46,11 @@ public interface AskforLeaveDao {
     List<Askforleave> queryOrgAsk();
 
     List<Askforleave> queryMyEmpAsk(int staffId);
+
+    //查看该月的请假记录
+    List<Askforleave> queryAskforleaveAllByTime(int id, Date stratTime, Date endTime, Integer pageNum, Integer pageSize);
+
+    //所有请假记录
+    List<Askforleave> queryAskforleaveAll(int id,Integer pageNum, Integer pageSize);
 
 }

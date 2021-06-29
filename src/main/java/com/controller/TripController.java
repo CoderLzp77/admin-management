@@ -14,6 +14,7 @@ public class TripController {
     private R r;
     @Autowired
     private TripService tripService;
+    //所有出差记录
     @GetMapping("/queryAllTrip")
     public R queryAllTrip(){
         return r.success(tripService.queryAllTrip());
@@ -26,10 +27,12 @@ public class TripController {
     public R AddTrip(@RequestBody TripVo tripVo){
         return r.success(tripService.AddTrip(tripVo));
     }
+    //查询未批准出差
     @GetMapping("/queryApprove")
     public R queryApprove(){
         return r.success(tripService.queryApproveTrip());
     }
+    //查看该月的出差记录
     @GetMapping("/querySubordinateTrip")
     public R querySubordinateTrip(@RequestParam(value = "state",required = false) Integer state,
                                   @RequestParam(value = "category",required = false) String category,

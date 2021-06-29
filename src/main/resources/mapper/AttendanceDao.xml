@@ -1,0 +1,52 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AttendanceDao">
+
+    <!--将在表Attendance中查询到的ResultSet装入Attendance实体类中，实例化对象-->
+    <resultMap id="AttendanceMap" type="com.pojo.Attendance">
+        <id column="StaffId" property="staffId" />
+        <id column="DateId" property="dateId" />
+        <result column="CheckInTime" property="checkInTime" />
+        <result column="SignOutTime" property="signOutTime" />
+        <result column="Remark" property="remark" />
+        <collection property="clockintimeList" ofType="com.pojo.Clockintime">
+            <id column="StaffId" property="staffId" />
+            <id column="ClockInTime" property="clockInTime" />
+        </collection>
+    </resultMap>
+
+    <!--TODO _________________________________________________________________________-->
+    <!--个人考勤查看 日查询-->
+    <!--1.查看个人的日考勤情况-->
+    <select id="queryAttendanceDay"  resultMap="AttendanceMap">
+        SELECT * FROM attendance a,clockintime c WHERE  a.StaffId=#{arg0} AND c.StaffId=#{arg0}
+        AND UNIX_TIMESTAMP(c.`ClockInTime`)>=UNIX_TIMESTAMP(a.`CheckInTime`)
+        AND UNIX_TIMESTAMP(a.`SignOutTime`)>=UNIX_TIMESTAMP(c.`ClockInTime`) LIMIT #{arg1},#{arg2}
+    </select>
+
+    <!--2.查看个人的日考勤情况按选择的时间来查-->
+    <select id="queryAttendanceDayByTime"  resultMap="AttendanceMap">
+        SELECT * FROM attendance a,clockintime c WHERE  a.StaffId=#{arg0} AND c.StaffId=#{arg0}
+        AND UNIX_TIMESTAMP(c.`ClockInTime`)>=UNIX_TIMESTAMP(a.`CheckInTime`)
+        AND UNIX_TIMESTAMP(a.`SignOutTime`)>=UNIX_TIMESTAMP(c.`ClockInTime`)
+        AND a.DateId=#{arg1} LIMIT #{arg2},#{arg3}
+    </select>
+
+    <!--TODO _________________________________________________________________________-->
+    <!--个人考勤查看 月查询-->
+    <!--查看个人的月考勤情况按选择的时间来查-->
+    <select id="queryAttendanceMonthByTime" resultMap="AttendanceMap">
+        SELECT * FROM attendance a,clockintime c WHERE  a.StaffId=#{arg0} AND c.StaffId=#{arg0}
+        AND UNIX_TIMESTAMP(c.`ClockInTime`)>=UNIX_TIMESTAMP(a.`CheckInTime`)
+        AND UNIX_TIMESTAMP(a.`SignOutTime`)>=UNIX_TIMESTAMP(c.`ClockInTime`)
+        AND UNIX_TIMESTAMP(a.DateId)>=UNIX_TIMESTAMP(#{arg1})
+        And UNIX_TIMESTAMP(#{arg2})>UNIX_TIMESTAMP(a.DateId) LIMIT #{arg3},#{arg4}
+    </select>
+    <!--查考勤单表（补充按月查service）-->
+    <select id="queryAttendanceAll" resultType="com.pojo.Attendance">
+        SELECT * FROM attendance WHERE StaffId=#{arg0}
+        AND UNIX_TIMESTAMP(DateId)>=UNIX_TIMESTAMP(#{arg1})
+        And UNIX_TIMESTAMP(#{arg2})>UNIX_TIMESTAMP(DateId) LIMIT #{arg3},#{arg4}
+    </select>
+</mapper>

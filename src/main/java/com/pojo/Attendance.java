@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class Attendance {
 
@@ -15,6 +16,7 @@ public class Attendance {
   private Date checkInTime;
   private Date signOutTime;
   private String remark;
+  private List<Clockintime> clockintimeList;
 
   public Attendance() {
   }
@@ -57,5 +59,13 @@ public class Attendance {
 
   public void setRemark(String remark) {
     this.remark = remark;
+  }
+
+  public List<Clockintime> getClockintimeList() {
+    return clockintimeList;
+  }
+
+  public void setClockintimeList(List<Clockintime> clockintimeList) {
+    this.clockintimeList = clockintimeList;
   }
 }
