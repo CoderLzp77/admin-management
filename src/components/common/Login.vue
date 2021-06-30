@@ -1,0 +1,113 @@
+<template>
+  <div id="Login">
+    <img src="@/assets/img/banner.4994397e.jpg" alt="">
+    <div class="main">
+       <div class="login-top">
+         <i class="el-icon-office-building" style="color: orangered"/><span>行政管理账户</span>
+       </div>
+       <div class="login-form" :model="LoginForm" ref="loginForm">
+         <input v-model="LoginForm.username" placeholder="用户名" ></input><br>
+         <input v-model="LoginForm.password" placeholder="密码" type="password"></input><br>
+         <button @click="Login">登录</button>
+       </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import {post} from "@/network/request";
+import  Qs from 'qs';
+
+export default {
+  name: "Login",
+  data(){
+    return {
+     LoginForm: {
+       username: '',
+       password: ''
+     }/*,
+      rules: {
+       username: [
+         {required: true,message: '请输入用户名',trigger: 'blur' }
+       ],
+       password: [
+         {require: true,message: '请输入密码',trigger: 'blur' }
+       ]
+      }*/
+    }
+  },
+  methods: {
+   async Login(){
+         post('/Staff/Login',Qs.stringify(this.LoginForm))
+         .then(res => {
+           console.log(res);
+           if (res.data.status === 200) {
+             localStorage.setItem("staffId",res.data.data.staffId)
+             localStorage.setItem("token",res.data.data.token)
+             this.$message.success("登录成功")
+             this.$router.push({path:'/Index',query:{name:this.LoginForm.username}})
+           }else if (res.data.status === 404){
+             this.$message.error("账号或密码错误!")
+           } else {
+             return this.$message.error("登录失败!")
+           }
+         })
+    }
+  }
+}
+</script>
+
+<style scoped>
+#login{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+img{
+  width: 375px;
+  height: 100%;
+}
+.main{
+  position: absolute;
+  top: 0;
+  left: 375px;
+}
+.login-top{
+  padding-top: 15px;
+  padding-left: 10px;
+  height: 50px;
+  font-size: 30px;
+}
+
+.login-form{
+  width: 400px;
+  height: 500px;
+  background-color: rgba(245,245,245,0.65);
+  position: relative;
+  margin-top: 120px;
+  margin-left: 480px;
+  padding: 100px 50px 0 100px;
+
+}
+input{
+  display: block;
+  width: 300px;
+  height: 39px;
+  border-style: none;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255,69,0,0.2);
+  border-radius: 4px;
+}
+input:focus {
+  outline:none;
+  border: 1px solid  rgba(255,69,0,0.65);
+}
+button{
+  display: block;
+  width: 300px;
+  height: 39px;
+  border-style: none;
+  background-color: orangered;
+  border-radius: 4px;
+}
+</style>
