@@ -54,12 +54,12 @@ export default {
          })
     },
     verifyToken() {
-      if(localStorage.getItem('token')){
+     /* if(localStorage.getItem('token')){
         this.$message.success("登录成功")
         this.$router.replace('/Index')
       }else{
         this.$message.error("身份验证以过期，请重新登录")
-      }
+      }*/
     }
   },
   created() {

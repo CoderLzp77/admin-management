@@ -18,6 +18,6 @@ export function getAll(url){
 }
 
 axios.interceptors.request.use(config=>{
-    config.headers.Authorization=window.sessionStorage.getItem('token');
+    config.headers.token=window.localStorage.getItem('token');
     return config;
 })

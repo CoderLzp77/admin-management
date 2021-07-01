@@ -17,7 +17,7 @@
                  <el-dropdown-item>报销消息</el-dropdown-item>
                </el-dropdown-menu>
              </el-dropdown>
-             <el-button type="primary">logout</el-button>
+             <el-button type="primary" @click="logout">登出</el-button>
            </div>
          </div>
        </el-header>
@@ -90,6 +90,12 @@ export default {
     return {
       value: '',
       search: ''
+    }
+  },
+  methods:{
+    logout(){
+      localStorage.clear()
+      this.$router.push("/Login")
     }
   }
 }
