@@ -1,7 +1,8 @@
 <template>
   <div id="view-personage">
-    <p style="color: cornflowerblue"><i class="el-icon-user-solid"></i>个人考勤查看</p>
+    <p style="color: #31708f"><i class="el-icon-user-solid"></i>个人考勤查看</p>
     <div class="view-personage-table">
+      //
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
           日考勤<i class="el-icon-arrow-down el-icon--right"></i>
@@ -44,6 +45,7 @@
             :total="30">
         </el-pagination>
       </div>
+      //
     </div>
     <hr>
     <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
@@ -91,7 +93,7 @@ p{
   padding-left: 10px;
   font-size: 20px;
   line-height: 65px;
-  background-color: #cefff5;
+  background-color: rgb(217,237,247);
 }
 .el-dropdown-link{
   padding: 12px;
