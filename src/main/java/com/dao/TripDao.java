@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TripDao {
-    List<Trip> queryAllTrip();
+    List<Trip> queryAllTrip(@Param(value = "pageNum") Integer pageNum,@Param("pageSize") Integer pageSize);
 
     List<Trip> queryApproveTrip();
 

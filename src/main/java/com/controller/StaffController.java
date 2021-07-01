@@ -105,4 +105,10 @@ public class StaffController {
             return r.error();
         }
     }
+    @GetMapping("/queryStaffSub")
+    public R queryStaffAll(@RequestParam(value = "staffId") int staffId ,
+                           @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+                           @RequestParam(value="pageSize",defaultValue = "5") Integer pageSize){
+        return r.success(staffService.queryStaffSub(staffId,pageNum,pageSize));
+    }
 }

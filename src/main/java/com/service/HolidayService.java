@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface HolidayService {
-    List<Holidays> queryHolidayTime();
+    List<Holidays> queryHolidayTime(Integer pageNum,Integer pageSize);
     //查看全部假期
     List<Holidays> queryHolidayAllTime(Integer pageNum, Integer pageSize);
     //查看该年假期

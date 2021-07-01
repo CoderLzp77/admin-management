@@ -16,8 +16,8 @@ public class HolidayImpl implements HolidayService {
     @Autowired
     private HolidayDao holidayDao;
     @Override
-    public List<Holidays> queryHolidayTime() {
-        return holidayDao.queryHolidayTime();
+    public List<Holidays> queryHolidayTime(Integer pageNum,Integer pageSize) {
+        return holidayDao.queryHolidayTime(pageNum, pageSize);
     }
 
     @Override

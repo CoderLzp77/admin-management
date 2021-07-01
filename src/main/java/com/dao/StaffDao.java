@@ -43,7 +43,7 @@ public interface StaffDao {
     /**
      * 添加新员工
      */
-    int addNewStaff(Staff newStaff);
+    int addNewStaff(Staff Staff);
 
     /**
      * 重置密码
@@ -59,4 +59,8 @@ public interface StaffDao {
      * 添加新员工
      */
     int updateStaffInfo(Staff staff);
+
+    List<Staff> queryStaffSub(@Param("staffId") int staffId,
+                              @Param("pageNum") Integer pageNum,
+                              @Param("pageSize") Integer pageSize);
 }

@@ -16,8 +16,9 @@ public class TripController {
     private TripService tripService;
     //所有出差记录
     @GetMapping("/queryAllTrip")
-    public R queryAllTrip(){
-        return r.success(tripService.queryAllTrip());
+    public R queryAllTrip(  @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+                            @RequestParam(value="pageSize",defaultValue = "2") Integer pageSize){
+        return r.success(tripService.queryAllTrip((pageNum-1)*pageSize,pageSize));
     }
     @GetMapping("/queryTripInfoById")
     public R queryTripInfoById(@RequestParam(value = "id") int id){

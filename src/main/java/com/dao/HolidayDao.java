@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface HolidayDao {
-    List<Holidays> queryHolidayTime();
+    List<Holidays> queryHolidayTime(Integer pageNum,Integer pageSize);
     //查看全部假期
     List<Holidays> queryHolidayAllTime(Integer pageNum, Integer pageSize);
     //查看该年假期

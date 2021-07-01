@@ -24,8 +24,8 @@ public class TripImpl implements TripService {
     @Autowired
     private OtherConsumeDao otherConsumeDao;
 
-    public List<Trip> queryAllTrip() {
-        return tripDao.queryAllTrip();
+    public List<Trip> queryAllTrip(Integer pageNum,Integer pageSize) {
+        return tripDao.queryAllTrip(pageNum, pageSize);
     }
 
     public List<TripInfo> queryTripInfoById(int id) {

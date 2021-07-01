@@ -95,7 +95,7 @@
 </where>
     </select>
     <insert id="addNewStaff" parameterType="com.pojo.Staff">
-        insert into am_system.staff( UserName, Password, State, StaffName, Gender, Birthday, OrganizationId, JobId, DirectBoss, Birthplace, Position, PhoneNumber, Email, PhotoUrl)
+        insert into staff( UserName, Password, State, StaffName, Gender, Birthday, OrganizationId, JobId, DirectBoss, Birthplace, Position, PhoneNumber, Email, PhotoUrl)
         values( #{userName}, #{password}, #{state}, #{staffName}, #{gender}, #{birthday}, #{organizationId}, #{jobId},
                 #{directBoss}, #{birthplace}, #{position}, #{phoneNumber}, #{email}, #{photoUrl});
     </insert>
@@ -103,4 +103,9 @@
     <update id="rePassword" parameterType="int" >
         UPDATE am_system.staff SET Password='123456' where StaffId=#{staffId};
     </update>
+    <!--查看直接下属考勤情况-->
+    <!--下属列表-->
+    <select id="queryStaffSub" resultMap="StaffMapper">
+        SELECT * FROM staff s,organization o WHERE s.DirectBoss=#{staffId} And s.OrganizationId=o.OrganizationId LIMIT #{pageNum},#{pageSize}
+    </select>
 </mapper>

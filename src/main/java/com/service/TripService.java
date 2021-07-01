@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface TripService {
-    List<Trip> queryAllTrip();
+    List<Trip> queryAllTrip(Integer pageNum,Integer pageSize);
 
     List<TripInfo> queryTripInfoById(int id);
 

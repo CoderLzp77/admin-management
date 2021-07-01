@@ -23,9 +23,9 @@ public class HolidaysController {
      */
     //查看全部假期
     @GetMapping("/queryHolidayTime")
-    public R queryHolidayTime(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
-                              @RequestParam(value="pageSize",defaultValue = "5") Integer pageSize){
-        return r.success(holidaysService.queryHolidayAllTime(pageNum,pageSize));
+    public R queryHolidayTime(@RequestParam(value = "pageNum",defaultValue = "1",required = false) Integer pageNum,
+                              @RequestParam(value="pageSize",defaultValue = "5",required = false) Integer pageSize){
+        return r.success(holidaysService.queryHolidayTime(pageNum, pageSize));
     }
 
     //查看该年假期

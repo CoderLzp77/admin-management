@@ -67,7 +67,7 @@
         select * from am_system.askforleave a, am_system.staff b where b.DirectBoss=#{directBoss} and a.Applicant=b.StaffId;
     </select>
     <!--查看该月的请假记录-->
-    <select id="queryAskforleaveAllByTime"  resultMap="AskforleaveMap">
+    <select id="queryAskforleaveAllByTime"  resultMap="LeaveMapper">
         SELECT * FROM askforleave WHERE Applicant=#{arg0}
         AND UNIX_TIMESTAMP(StartTime)>=UNIX_TIMESTAMP(#{arg1})
         AND UNIX_TIMESTAMP(#{arg2})>UNIX_TIMESTAMP(EndTime) LIMIT #{arg3},#{arg4}

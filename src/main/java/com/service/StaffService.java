@@ -33,11 +33,13 @@ public interface StaffService {
                              @Param("category") String category,
                              @Param("duration") Integer duration);
 
-    int addNewStaff(Staff newStaff);
+    int addNewStaff(Staff staff);
 
     int rePassword(int staffId);
 
     int deleteStaffById(int staffId);
 
     int updateStaffInfo(Staff staff);
+
+    List<Staff> queryStaffSub(int staffId,Integer pageNum,Integer pageSize);
 }

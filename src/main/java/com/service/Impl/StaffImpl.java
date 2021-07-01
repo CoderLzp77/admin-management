@@ -103,8 +103,8 @@ public class StaffImpl implements StaffService {
 
     @Override
     @Transactional
-    public int addNewStaff(Staff newStaff) {
-        return staffDao.addNewStaff(newStaff);
+    public int addNewStaff(Staff staff) {
+        return staffDao.addNewStaff(staff);
     }
 
     @Override
@@ -123,6 +123,11 @@ public class StaffImpl implements StaffService {
     @Transactional
     public int updateStaffInfo(Staff staff) {
         return staffDao.updateStaffInfo(staff);
+    }
+
+    @Override
+    public List<Staff> queryStaffSub(int staffId,Integer pageNum,Integer pageSize) {
+        return staffDao.queryStaffSub(staffId, pageNum, pageSize);
     }
 
 }
