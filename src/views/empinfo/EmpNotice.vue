@@ -30,7 +30,7 @@
           </el-table-column>
           <el-table-column label="重置密码" align="center">
             <template>
-              <el-button type="primary" icon="el-icon-refresh-right"></el-button>
+              <el-button type="primary" icon="el-icon-refresh-right" @click="resetPwd"></el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -73,6 +73,9 @@ export default {
     handleCurrentChange(val){
       this.pageNum = val
       this.getData()
+    },
+    resetPwd(){
+      console.log('reset');
     },
      async getData(){
         await get('/Staff/queryAll',{

@@ -2,13 +2,12 @@
   <div id="view-personage">
     <p style="color: #31708f"><i class="el-icon-user-solid"></i>个人考勤查看</p>
     <div class="view-personage-table">
-      //
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
           日考勤<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item >月考勤</el-dropdown-item>
+          <el-dropdown-item>月考勤</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <div class="block">
@@ -45,7 +44,6 @@
             :total="30">
         </el-pagination>
       </div>
-      //
     </div>
     <hr>
     <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
@@ -55,6 +53,8 @@
 </template>
 
 <script>
+import {get} from "@/network/request";
+
 export default {
   name: "ViewPersonage",
   data(){
@@ -67,6 +67,13 @@ export default {
     }
   },
   methods: {
+    async getData(){
+     await get('/',{
+
+     }).then(res => {
+       this.tableData = res.data.data
+     })
+    },
     handleCommand(){
       console.log("sdf");
     },
@@ -83,6 +90,9 @@ export default {
       this.pageNum = val
       this.getData()
     }
+  },
+  created() {
+    //this.getData()
   }
 }
 </script>
