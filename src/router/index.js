@@ -12,6 +12,8 @@ const ViewPersonage = () => import('@/views/attendance/ViewPersonage')
 const ViewSubordinate = () => import('@/views/attendance/ViewSubordinate')
 const HolidayManage = () => import('@/views/attendance/HolidayManage')
 const VacateNotice = () => import('@/views/vacate/VacateNotice')
+const ViewSubordinateVacate = () =>  import('@/views/vacate/ViewSubordinateVacate')
+const ViewDeptVacate = () => import('@/views/vacate/ViewDeptVacate')
 const Vacate = () => import('@/views/vacate/Vacate')
 const VacateManage = () => import('@/views/vacate/VacateManage')
 const TripNotice = () => import('@/views/trip/TripNotice')
@@ -20,6 +22,7 @@ const TripManage = () => import('@/views/trip/TripManage')
 const ReiNotice = () => import('@/views/reimbursement/ReiNotice')
 const Reimbursement = () => import('@/views/reimbursement/Reimbursement')
 const ReiManage = () => import('@/views/reimbursement/ReiManage')
+
 
 Vue.use(VueRouter)
 
@@ -53,6 +56,8 @@ const routes = [
       {path:'/ViewSubordinate', component: ViewSubordinate, meta: {title: '考勤-查看直接下属情况'}},
       {path:'/HolidayManage', component: HolidayManage, meta: {title: '考勤-节假日修改'}},
       {path:'/VacateNotice', component: VacateNotice, meta: {title: '请假-最新通知'}},
+      {path:'/ViewSubordinateVacate', component: ViewSubordinateVacate, meta: {title: '查看下属的请假'}},
+      {path:'/ViewDeptVacate', component: ViewDeptVacate, meta: {title: '查看部门的请假'}},
       {path:'/Vacate', component: Vacate, meta: {title: '请假-申请请假'}},
       {path:'/VacateManage', component: VacateManage, meta: {title: '请假-请假管理'}},
       {path:'/TripNotice', component: TripNotice, meta: {title: '出差-最新通知'}},
@@ -79,4 +84,8 @@ router.beforeEach((to, from, next) => {
     window.document.title = to.meta.title
   }
   next()
+  if(to.path === '/Login') return next()
+  const token = localStorage.getItem('token')
+  if(!token)
+  return next('/Login')
 })

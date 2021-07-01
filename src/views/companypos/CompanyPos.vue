@@ -3,7 +3,7 @@
     <div class="company-table-body">
       <div class="company-table-header">
         <span><i class="el-icon-s-tools"></i>岗位设定</span>
-        <el-button type="success" style="margin-left: 80px"><i class="el-icon-plus" ></i>增加岗位</el-button>
+        <el-button type="success" style="margin-left: 80px" @click="dialogVisible2 = true"><i class="el-icon-plus" ></i>增加岗位</el-button>
         <el-form :inline="true"  class="demo-form-inline">
           <el-form-item>
             <el-input v-model="empMessage" placeholder="" style="width: 500px"></el-input>
@@ -50,19 +50,39 @@
         width="30%">
       <el-form ref="form" :model="showData" label-width="80px">
         <el-form-item label="岗位编号:">
-          <el-input v-model="showData.staffId"></el-input>
+          <el-input v-model="showData.JobId"></el-input>
         </el-form-item>
         <el-form-item label="岗位名称:">
-          <el-input v-model="showData.staffId"></el-input>
+          <el-input v-model="showData.Job"></el-input>
         </el-form-item>
         <el-form-item label="岗位描述:">
-          <el-input v-model="showData.staffId"></el-input>
+          <el-input v-model="showData.describe"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="modify">确 定</el-button>
           </span>
+    </el-dialog>
+    <el-dialog
+        title="详情"
+        :visible.sync="dialogVisible2"
+        width="30%">
+      <el-form :model="submitTable"  ref="ruleForm" label-width="80px" class="demo-Staff" >
+        <el-form-item label="岗位编号：" prop="JobId">
+          <el-input v-model="submitTable.JobId"></el-input>
+        </el-form-item>
+        <el-form-item label="岗位名称：" prop="Job">
+          <el-input v-model="submitTable.Job"></el-input>
+        </el-form-item>
+        <el-form-item label="岗位描述：" prop="describe">
+          <el-input v-model="submitTable.describe"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible2 = false">取 消</el-button>
+            <el-button type="primary" @click="addJob(submitTable)">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -75,9 +95,11 @@ export default {
   data(){
     return {
       dialogVisible: false,
+      dialogVisible2: false,
       empMessage: '',
       tableData: [],
       showData: [],
+      submitTable: {},
       pageNum: 1,
       pageSize: 3
     }
@@ -106,6 +128,10 @@ export default {
     },
     handleSizeChange(val){
       this.pageSize = val
+    },
+    addJob(submitTable){
+      this.dialogVisible2 = false
+      /*console.log(submitTable);*/
     },
     deleteJob(row){
       axios.delete('http://8.140.107.62:8081/DeleteJob/'+row.JobId).then(res => {

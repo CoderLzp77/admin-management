@@ -78,10 +78,15 @@ export default {
       showDate: {
         staff:{}
       },
-      dialogVisible: false
+      dialogVisible: false,
+      pageNum: 1,
+      pageSize: 3
     }
   },
   methods: {
+    async getData(){
+
+    },
     disAgree(row){
 
     },
@@ -101,6 +106,9 @@ export default {
       this.pageSize = val
       this.getDate()
     }
+  },
+  created() {
+    this.getData()
   }
 }
 </script>

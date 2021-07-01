@@ -45,14 +45,25 @@ export default {
              localStorage.setItem("staffId",res.data.data.staffId)
              localStorage.setItem("token",res.data.data.token)
              this.$message.success("登录成功")
-             this.$router.push({path:'/Index',query:{name:this.LoginForm.username}})
+             this.$router.replace({path:'/Index',query:{name:this.LoginForm.username}})
            }else if (res.data.status === 404){
              this.$message.error("账号或密码错误!")
            } else {
              return this.$message.error("登录失败!")
            }
          })
+    },
+    verifyToken() {
+      if(localStorage.getItem('token')){
+        this.$message.success("登录成功")
+        this.$router.replace('/Index')
+      }else{
+        this.$message.error("身份验证以过期，请重新登录")
+      }
     }
+  },
+  created() {
+    this.verifyToken()
   }
 }
 </script>
