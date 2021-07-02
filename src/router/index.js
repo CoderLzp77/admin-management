@@ -17,9 +17,13 @@ const ViewDeptVacate = () => import('@/views/vacate/ViewDeptVacate')
 const Vacate = () => import('@/views/vacate/Vacate')
 const VacateManage = () => import('@/views/vacate/VacateManage')
 const TripNotice = () => import('@/views/trip/TripNotice')
+const ViewDeptTrip = () => import('@/views/trip/ViewDeptTrip')
+const ViewSubordinateTrip = () => import('@/views/trip/ViewSubordinateTrip')
 const Trip = () => import('@/views/trip/Trip')
 const TripManage = () => import('@/views/trip/TripManage')
 const ReiNotice = () => import('@/views/reimbursement/ReiNotice')
+const ViewDeptRei = () => import('@/views/reimbursement/ViewDeptRei')
+const ViewSubordinateRei = () => import('@/views/reimbursement/ViewSubordinateRei')
 const Reimbursement = () => import('@/views/reimbursement/Reimbursement')
 const ReiManage = () => import('@/views/reimbursement/ReiManage')
 
@@ -61,9 +65,13 @@ const routes = [
       {path:'/Vacate', component: Vacate, meta: {title: '请假-申请请假'}},
       {path:'/VacateManage', component: VacateManage, meta: {title: '请假-请假管理'}},
       {path:'/TripNotice', component: TripNotice, meta: {title: '出差-最新通知'}},
+      {path:'/ViewDeptTrip', component: ViewDeptTrip, meta: {title: '查看部门的出差'}},
+      {path:'/ViewSubordinateTrip', component: ViewSubordinateTrip, meta: {title: '查看下属出差'}},
       {path:'/Trip', component: Trip, meta: {title: '出差-申请出差'}},
       {path:'/TripManage', component: TripManage, meta: {title: '出差-出差管理'}},
       {path: '/ReiNotice', component: ReiNotice, meta: {title: '报销-最新通知'}},
+      {path: '/ViewDeptRei', component: ViewDeptRei, meta: {title: '查看部门的报销'}},
+      {path: '/ViewSubordinateRei', component: ViewSubordinateRei, meta: {title: '查看下属的报销'}},
       {path: '/Reimbursement', component: Reimbursement, meta: {title: '报销-申请报销'}},
       {path:'/ReiManage', component: ReiManage, meta: {title: '报销-报销管理'}
       }

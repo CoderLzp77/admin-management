@@ -3,7 +3,7 @@
     <div class="emp-table-body">
       <div class="emp-table-header">
       <span><i class="el-icon-user-solid"></i>添加员工信息</span>
-      <el-button type="success" style="margin-left: 80px"><i class="el-icon-plus" ></i>增加员工</el-button>
+      <el-button type="success" style="margin-left: 80px" @click="to"><i class="el-icon-plus" ></i>增加员工</el-button>
       <el-form :inline="true"  class="demo-form-inline">
         <el-form-item>
           <el-input v-model="empMessage" placeholder=""></el-input>
@@ -116,6 +116,9 @@ export default {
       }).then(res => {
          this.tableData = res.data.data
        })
+    },
+    to(){
+      this.$router.push('/addEmp')
     },
     searchForEmp(){
       this.getData()

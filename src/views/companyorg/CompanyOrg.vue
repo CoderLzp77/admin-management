@@ -1,6 +1,8 @@
 <template>
   <div id="company-org">
+    <div>
 
+    </div>
   </div>
 </template>
 
