@@ -68,7 +68,7 @@
         title="详情"
         :visible.sync="dialogVisible2"
         width="30%">
-      <el-form :model="submitTable"  ref="ruleForm" label-width="80px" class="demo-Staff" >
+      <el-form :model="submitTable"  ref="ruleForm" label-width="90px" class="demo-Staff" >
         <el-form-item label="岗位编号：" prop="JobId">
           <el-input v-model="submitTable.JobId"></el-input>
         </el-form-item>

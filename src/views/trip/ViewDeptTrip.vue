@@ -104,9 +104,9 @@
               :visible.sync="dialogVisible"
               width="50%">
             <label for="username" class="details">姓名</label>
-            <el-input id="username" v-model="showData.askforleave.staffName" disabled></el-input>
+            <el-input id="username" v-model="showData" disabled></el-input>
             <label for="boss" class="details">上司</label>
-            <el-input id="boss" v-model="showData.askforleave.directBoss" disabled></el-input>
+            <el-input id="boss" v-model="showData" disabled></el-input>
             <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -136,8 +136,7 @@ export default {
         value3: ''
       },
       tableData: [],
-      showData: {
-      },
+      showData: [],
       pageNum: 1,
       pageSize: 3,
       dialogVisible: false

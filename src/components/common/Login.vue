@@ -40,8 +40,13 @@ export default {
    async Login(){
          post('/Staff/Login',Qs.stringify(this.LoginForm))
          .then(res => {
-           console.log(res);
+          /* console.log(res);*/
            if (res.data.status === 200) {
+             if(res.data.data.state === 1){
+               localStorage.setItem('userCode','Admin')
+             }else{
+               localStorage.setItem('userCode','user')
+             }
              localStorage.setItem("staffId",res.data.data.staffId)
              localStorage.setItem("token",res.data.data.token)
              this.$message.success("登录成功")

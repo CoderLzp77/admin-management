@@ -6,7 +6,7 @@
              <span>Administrative Management System</span><el-input class="el-input" v-model="search" placeholder="Search"></el-input>
            </div>
          <div class="header-admin">
-           <img src="@/assets/img/头像.svg" alt=""> <span>Welcome back</span>
+           <img src="@/assets/img/头像.svg" alt=""> <span>Welcome back[{{userCode}}]</span>
            <div class="header-admin-right">
              <el-button type="danger">打卡</el-button>
              <el-dropdown split-button type="info">
@@ -89,7 +89,8 @@ export default {
   data(){
     return {
       value: '',
-      search: ''
+      search: '',
+      userCode: localStorage.getItem('userCode')
     }
   },
   methods:{
@@ -117,6 +118,7 @@ export default {
 }
 .header-admin span{
   font-size: 20px;
+  margin-left: 20px;
   color: white;
 }
 .el-input{
