@@ -23,13 +23,13 @@
             :data="tableData"
             border
             style="width: 100%">
-          <el-table-column prop="OrganizationId" label="组织机构编码" align="center" >
+          <el-table-column prop="organizationId" label="组织机构编码" align="center" >
           </el-table-column>
-          <el-table-column prop="Name" label="组织机构名称"   align="center">
+          <el-table-column prop="name" label="组织机构名称"   align="center">
           </el-table-column>
-          <el-table-column prop="Remark" label="组织机构备注"   align="center">
+          <el-table-column prop="remark" label="组织机构备注"   align="center">
           </el-table-column>
-          <el-table-column prop="HigherOrgId" label="组织机构类型"   align="center">
+          <el-table-column prop="higherOrgId" label="组织机构类型"   align="center">
           </el-table-column>
           <el-table-column label=""  align="center">
             <template slot-scope="scope">
@@ -56,6 +56,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "CompanyOrg",
   data(){
@@ -85,6 +87,17 @@ export default {
     update(){
 
     }
+  },
+  created() {
+    axios.get("http://localhost:8081/Organization/ShowOrganizationInfoLimit",{
+      params:{
+        pageNum:1,
+        pageSize:3
+      }
+    }).then(res=>{
+      console.log(res)
+      this.tableData=res.data.data
+    })
   }
 }
 </script>
