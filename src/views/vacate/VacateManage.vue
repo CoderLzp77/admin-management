@@ -6,18 +6,20 @@
        <hr>
        <template>
          <el-table
-             :data="tableData"
+             :data="alldata"
              border
              style="width: 100%">
-           <el-table-column prop="username" label="请假人姓名" align="center" >
+           <el-table-column prop="name" label="请假人姓名" align="center" >
            </el-table-column>
-           <el-table-column prop="vacateDept" label="请假人部门"   align="center">
+           <el-table-column prop="organization" label="请假人部门"   align="center">
            </el-table-column>
-           <el-table-column prop="endDate" label="申请请假结束时间"   align="center">
+           <el-table-column prop="startTime" label="申请请假开始时间"   align="center">
            </el-table-column>
-           <el-table-column prop="vacateDay" label="请假天数"   align="center">
+           <el-table-column prop="endTime" label="申请请假结束时间"   align="center">
            </el-table-column>
-           <el-table-column prop="vacateSub" label="请假科目"   align="center">
+           <el-table-column prop="duration" label="请假天数"   align="center">
+           </el-table-column>
+           <el-table-column prop="category" label="请假科目"   align="center">
            </el-table-column>
            <el-table-column label="批准"  align="center">
              <template slot-scope="scope">
@@ -67,6 +69,8 @@
 
 <script>
 import Notification from "@/components/content/Notification";
+import {getAll,get} from "@/network/request";
+import axios from "axios";
 export default {
   name: "VacateManage",
   components: {
@@ -75,36 +79,61 @@ export default {
   data(){
     return {
       tableData: [],
+      alldata: [],
       showDate: {
         staff:{}
       },
       dialogVisible: false,
       pageNum: 1,
-      pageSize: 3
+      pageSize: 1
     }
   },
   methods: {
-    async getData(){
+     getData(){
+        axios.get('http://192.168.1.103:8081/Staff/Approve',{
+        params: {
+          pageNum: this.pageNum,
+          pageSize: this.pageSize
+        }
+      }).then(res => {
+/*        console.log(res);*/
+        this.alldata=[]
+        this.tableData = res.data.data
+        for (let i = 0; i < this.tableData.length; i++) {
+          this.askforleave=this.tableData[i].askforleave
+          /*console.log(this.askforleave)*/
+          for (let k = 0; k <this.askforleave.length ; k++) {
+           /* console.log(this.askforleave[k])*/
+            this.$set(this.askforleave[k],'name',this.tableData[i].userName)
+            this.$set(this.askforleave[k],'organization',this.tableData[i].organization.name)
+          }
+          for (let j = 0; j < this.askforleave.length; j++) {
+            this.alldata.push(this.askforleave[j])
+          }
+        }
 
+        console.log(this.alldata)
+      })
     },
-    disAgree(row){
+ /*   disAgree(row){
 
     },
     agree(row){
 
-    },
+    },*/
     handleClick(row){
+      this.dialogVisible=true
       console.log(row)
       this.showDate=row
-      this.dialogVisible=true
+      //this.getData()
     },
     handleCurrentChange(val){
       this.pageNum = val
-      this.getDate()
+      this.getData()
     },
     handleSizeChange(val){
       this.pageSize = val
-      this.getDate()
+      this.getData()
     }
   },
   created() {

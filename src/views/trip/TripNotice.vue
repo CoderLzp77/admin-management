@@ -90,5 +90,7 @@ methods: {
 </script>
 
 <style scoped>
-
+p{
+  text-align: center;
+}
 </style>

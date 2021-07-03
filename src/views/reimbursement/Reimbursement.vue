@@ -88,4 +88,7 @@ export default {
 .rei-table{
   padding-top: 18px;
 }
+p{
+  font-size: 20px;
+}
 </style>

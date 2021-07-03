@@ -84,7 +84,7 @@ export default {
       rules: {
         userName: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
-          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+          { min: 2, max: 6, message: '长度在 2 到 6 个字符', trigger: 'blur' }
         ],
         birthday: [
           { required: true, message: '请选择生日', trigger: 'change' }
@@ -96,10 +96,12 @@ export default {
           { required: true, message: '请选择岗位', trigger: 'change' }
         ],
         phoneNumber: [
-          { required: true, message: '请填写电话', trigger: 'blur' }
+          { required: true, message: '请填写电话', trigger: 'blur' },
+          {pattern: /^1[0-9]{10}$/ ,message: '请输入11位数字',trigger: 'blur'}
         ],
         email: [
-          { required: true, message: '请填写邮箱', trigger: 'blur' }
+          { required: true, message: '请填写邮箱', trigger: 'blur' },
+          {pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,message: '邮箱格式错误',trigger: 'blur'}
         ],
         position: [
           { required: true, message: '请填写工作地址', trigger: 'blur' }

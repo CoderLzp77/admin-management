@@ -52,8 +52,8 @@
       <el-dialog
           title="修改员工信息"
           :visible.sync="dialogVisible"
-          width="30%">
-        <el-form ref="form" :model="Staff" label-width="80px">
+          width="25%">
+        <el-form ref="form" :model="Staff" :rules="rules" label-width="80px">
           <el-form-item label="员工编号:">
             <el-input v-model="Staff.staffId"></el-input>
           </el-form-item>
@@ -61,18 +61,22 @@
             <el-input v-model="Staff.userName"></el-input>
           </el-form-item>
           <el-form-item label="部门:">
-            <el-input v-model="Staff.organization.name"></el-input>
+            <el-select v-model="Staff.organization.name" placeholder="请选择部门">
+              <el-option label="技术部" value="1"></el-option>
+              <el-option label="销售部" value="2"></el-option>
+              <el-option label="传销部" value="3"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="岗位:">
             <el-input v-model="Staff.jobId"></el-input>
           </el-form-item>
-          <el-form-item label="直接领导:">
+          <el-form-item label="直接领导:" prop="directBoss">
             <el-input v-model="Staff.directBoss"></el-input>
           </el-form-item>
-          <el-form-item label="电话:">
+          <el-form-item label="电话:" prop="phoneNumber">
             <el-input v-model="Staff.phoneNumber"></el-input>
           </el-form-item>
-          <el-form-item label="邮箱:">
+          <el-form-item label="邮箱:" prop="email">
             <el-input v-model="Staff.email"></el-input>
           </el-form-item>
         </el-form>
@@ -92,7 +96,15 @@ import Qs from "qs";
 
 export default {
   name: "EmpManage",
-  data() {
+  data(){
+    let pattern = /^[0-9]$/
+    let validBoss=(rule,value,callback)=>{
+      if (!pattern.test(value)){
+        return callback(new Error('请填写一位数字'))
+      }else{
+        callback()
+      }
+    }
     return {
       dialogVisible: false,
       empMessage: '',
@@ -100,8 +112,28 @@ export default {
       pageNum: 1,
       pageSize: 3,
       Staff: {
+        staffId: '',
+        userName: '',
         organization:{
-        }
+          name: ''
+        },
+        jobId: '',
+        directBoss: '',
+        phoneNumber: '',
+        email: ''
+      },
+      rules: {
+        directBoss: [
+          {message:'请填写领导编号'},
+          {validator:validBoss,trigger: 'blur'}
+        ],
+        phoneNumber: [
+          { required: true, message: '请填写电话', trigger: 'blur' },
+          {pattern: /^1[0-9]{10}$/ ,message: '请输入11位数字',trigger: 'blur'}
+        ],
+        email: [
+          {pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,message: '邮箱格式错误',trigger: 'blur'}
+        ]
       }
     }
   },

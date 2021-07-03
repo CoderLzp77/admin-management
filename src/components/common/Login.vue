@@ -5,7 +5,7 @@
        <div class="login-top">
          <i class="el-icon-office-building" style="color: orangered"/><span>行政管理账户</span>
        </div>
-       <div class="login-form" :model="LoginForm" ref="loginForm" @keyup.enter="Login">
+       <div class="login-form" :model="LoginForm" ref="loginForm"  @keyup.enter="Login">
          <input v-model="LoginForm.username" placeholder="用户名" ></input><br>
          <input v-model="LoginForm.password" placeholder="密码" type="password"></input><br>
          <button @click="Login">登录</button>
@@ -68,18 +68,18 @@ export default {
     }
   },
   created() {
-    this.verifyToken()
+    /*this.verifyToken()*/
   }
 }
 </script>
 
 <style scoped>
-#login{
-  position: absolute;
-  width: 100%;
-  height: 100%;
+body{
+  margin: 0;
+  padding: 0;
 }
 img{
+  position: fixed;
   width: 375px;
   height: 100%;
 }
@@ -89,8 +89,8 @@ img{
   left: 375px;
 }
 .login-top{
-  padding-top: 15px;
-  padding-left: 10px;
+  padding-top: 25px;
+  padding-left: 20px;
   height: 50px;
   font-size: 30px;
 }
