@@ -57,6 +57,7 @@
 
 <script>
 import axios from "axios";
+import Qs from "qs"
 
 export default {
   name: "CompanyOrg",
@@ -86,6 +87,9 @@ export default {
     },
     update(){
 
+    },
+    addOrganization(){
+      axios.post("http://localhost:8081/Organization/AddOrganization")
     }
   },
   created() {

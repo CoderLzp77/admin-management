@@ -17,11 +17,11 @@
         <p><i class="el-icon-user-solid"></i>岗位信息列表</p>
         <template>
         <el-table :data="tableData" border style="width: 100%">
-          <el-table-column prop="JobId" label="岗位编码"  align="center" >
+          <el-table-column prop="jobId" label="岗位编码"  align="center" >
           </el-table-column>
-          <el-table-column prop="username" label="岗位名称"  align="center" >
+          <el-table-column prop="jobName" label="岗位名称"  align="center" >
           </el-table-column>
-          <el-table-column prop="address" label="岗位描述"  align="center" >
+          <el-table-column prop="responsibilities" label="岗位描述"  align="center" >
           </el-table-column>
           <el-table-column label="!!!" align="center">
             <template slot-scope="scope">
@@ -70,13 +70,13 @@
         width="30%">
       <el-form :model="submitTable"  ref="ruleForm" label-width="90px" class="demo-Staff" >
         <el-form-item label="岗位编号：" prop="JobId">
-          <el-input v-model="submitTable.JobId"></el-input>
+          <el-input v-model="submitTable.jobId"></el-input>
         </el-form-item>
         <el-form-item label="岗位名称：" prop="Job">
-          <el-input v-model="submitTable.Job"></el-input>
+          <el-input v-model="submitTable.jobName"></el-input>
         </el-form-item>
         <el-form-item label="岗位描述：" prop="describe">
-          <el-input v-model="submitTable.describe"></el-input>
+          <el-input v-model="submitTable.responsibilities"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     async getData(){
-      await get('/ShwoJobInfoLimit',{
+      await axios.get('http://192.168.1.103:8081/Job/ShowJobInfoLimit',{
         params: {
           pageNum: this.pageNum
         }

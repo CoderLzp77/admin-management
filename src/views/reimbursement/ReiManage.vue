@@ -67,6 +67,7 @@
 
 <script>
 import Notification3 from "@/components/content/Notification3";
+import axios from "axios";
 export default {
   name: "ReiManage",
   components: {
@@ -101,7 +102,7 @@ export default {
       this.pageSize = val
       this.getDate()
     }
-  }
+  },
 }
 </script>
 

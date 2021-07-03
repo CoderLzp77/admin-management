@@ -16,7 +16,7 @@
       <div class="emp-table-main">
         <p><i class="el-icon-user-solid"></i>员工信息列表</p>
         <el-table :data="tableData" border style="width: 100%">
-          <el-table-column prop="staffId" label="员工编码"  align="center" >
+          <el-table-column prop="staffId" label="员工编码"  align="center">
           </el-table-column>
           <el-table-column prop="userName" label="员工姓名"  align="center" >
           </el-table-column>
@@ -55,7 +55,7 @@
           width="30%">
         <el-form ref="form" :model="Staff" label-width="80px">
           <el-form-item label="员工编号:">
-            <el-input v-model="Staff.staffId"></el-input>
+            <el-input v-model="Staff.staffId" disabled></el-input>
           </el-form-item>
           <el-form-item label="员工姓名:">
             <el-input v-model="Staff.userName"></el-input>
@@ -147,7 +147,7 @@ export default {
     },
     modify(){
       this.dialogVisible = false
-      axios.post('http://8.140.107.62:8081/Staff/dateStaffInfo',Qs.parse(this.Staff)).then(res => {
+      axios.post('http://192.168.1.103:8081/Staff/updateStaff',Qs.parse(this.Staff)).then(res => {
         if (res.data.status === 200){
           this.$message.success('修改成功')
           this.getData()

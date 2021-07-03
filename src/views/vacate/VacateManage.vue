@@ -6,18 +6,18 @@
        <hr>
        <template>
          <el-table
-             :data="tableData"
+             :data="alldata"
              border
              style="width: 100%">
-           <el-table-column prop="username" label="请假人姓名" align="center" >
+           <el-table-column prop="name" label="请假人姓名" align="center" >
            </el-table-column>
-           <el-table-column prop="vacateDept" label="请假人部门"   align="center">
+           <el-table-column prop="organization" label="请假人部门"   align="center">
            </el-table-column>
-           <el-table-column prop="endDate" label="申请请假结束时间"   align="center">
+           <el-table-column prop="endTime" label="申请请假结束时间"   align="center">
            </el-table-column>
-           <el-table-column prop="vacateDay" label="请假天数"   align="center">
+           <el-table-column prop="duration" label="请假天数"   align="center">
            </el-table-column>
-           <el-table-column prop="vacateSub" label="请假科目"   align="center">
+           <el-table-column prop="category" label="请假科目"   align="center">
            </el-table-column>
            <el-table-column label="批准"  align="center">
              <template slot-scope="scope">
@@ -38,11 +38,10 @@
          <div class="block">
            <span class="demonstration">每页显示条数</span>
            <el-pagination
-               @size-change="handleSizeChange"
                @current-change="handleCurrentChange"
                :page-sizes="[1, 2, 3, 4, 5]"
                :page-size="3"
-               layout="sizes,prev, pager, next"
+               layout="prev, pager, next"
                :total="30">
            </el-pagination>
          </div>
@@ -67,6 +66,7 @@
 
 <script>
 import Notification from "@/components/content/Notification";
+import axios from "axios";
 export default {
   name: "VacateManage",
   components: {
@@ -78,6 +78,8 @@ export default {
       showDate: {
         staff:{}
       },
+      askforleave: [],
+      alldata:[],
       dialogVisible: false,
       pageNum: 1,
       pageSize: 3
@@ -85,13 +87,51 @@ export default {
   },
   methods: {
     async getData(){
+      this.alldata=[];
+        axios.get("http://192.168.1.103:8081/Staff/Approve",{
+          params:{
+            pageNum:this.pageNum,
+            pageSize:3,
+          }
+        }).then(res=>{
+          console.log(res)
+          this.tableData=res.data.data
+          for (let i = 0; i < this.tableData.length; i++) {
+            this.askforleave=this.tableData[i].askforleave
+            for (let k = 0; k <this.askforleave.length ; k++) {
+              this.$set(this.askforleave[k],'name',this.tableData[i].userName)
+              this.$set(this.askforleave[k],'organization',this.tableData[i].organization.name)
+            }
+            for (let j = 0; j < this.askforleave.length; j++) {
+               this.alldata.push(this.askforleave[j])
+            }
+          }
 
+          console.log(this.alldata)
+        })
     },
     disAgree(row){
-
+      axios.put("http://192.168.1.103:8081/Askforleave/updateStateById/3/"+row.leaveId).then(res=>{
+        console.log(res)
+        if (res.data.status === 200){
+          this.$message.success("已拒绝")
+          this.getData()
+        }else{
+          this.$message.error(res.data.message)
+        }
+      })
     },
     agree(row){
-
+      console.log(row.leaveId)
+    axios.put("http://192.168.1.103:8081/Askforleave/updateStateById/2/"+row.leaveId).then(res=>{
+      console.log(res)
+      if (res.data.status === 200){
+        this.$message.success("已批准")
+        this.getData()
+      }else{
+        this.$message.error(res.data.message)
+      }
+    })
     },
     handleClick(row){
       console.log(row)
@@ -100,16 +140,16 @@ export default {
     },
     handleCurrentChange(val){
       this.pageNum = val
-      this.getDate()
+      this.getData()
     },
-    handleSizeChange(val){
+ /*   handleSizeChange(val){
       this.pageSize = val
-      this.getDate()
-    }
+      this.getData()
+    }*/
   },
   created() {
     this.getData()
-  }
+  },
 }
 </script>
 

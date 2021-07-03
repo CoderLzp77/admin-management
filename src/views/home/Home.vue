@@ -211,7 +211,7 @@ export default {
                 }
               }
           ).then(res =>{
-           /* console.log(res)*/
+            console.log(res)
             this.tableData4 = res.data.data[0].askforleave
           })
       await get('/Trip/queryTripInfoById',{
