@@ -117,11 +117,11 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         console.log(this.Staff);
         if (valid) {
-          axios.post('http://192.168.1.103:8081/Staff/AddStaff',Qs.parse(this.Staff)
-          ).then(res =>{
-            if (res.data.status===200){
+          axios.post('http://8.140.107.62:8081/Staff/AddStaff', Qs.parse(this.Staff)
+          ).then(res => {
+            if (res.data.status === 200) {
               this.$message.success("添加成功")
-            }else {
+            } else {
               this.$message.error(res.data.message)
             }
           })
@@ -132,15 +132,7 @@ export default {
       })
     },
     resetForm(formName) {
-      this.$refs.ruleForm.resetFields((valid)=>{
-        if (valid){
-          axios.post("http://192.168.1.103:8081/Staff/AddStaff",{
-            data:{
-              Staff:this.Staff
-            }
-          })
-        }
-      })
+      this.$refs.ruleForm.resetFields();
     }
   }
 }
