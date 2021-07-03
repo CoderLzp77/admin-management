@@ -27,10 +27,10 @@
       </el-form-item>
       <el-form-item label="岗位：" prop="jobId">
         <el-select v-model="Staff.jobId" placeholder="请选择岗位">
-          <el-option label="总经理" value="1"></el-option>
+          <el-option label="总经理" value="4"></el-option>
           <el-option label="项目经理" value="2"></el-option>
-          <el-option label="程序员" value="3"></el-option>
-          <el-option label="销售经理" value="4"></el-option>
+          <el-option label="程序员" value="1"></el-option>
+          <el-option label="销售经理" value="3"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="直接领导：" prop="directBoss">
@@ -57,7 +57,6 @@
 </template>
 
 <script>
-import {post} from "@/network/request";
 import Qs from 'qs'
 import axios from "axios";
 export default {
@@ -84,7 +83,7 @@ export default {
       rules: {
         userName: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
-          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+          { min: 2, max: 6, message: '长度在 2 到 6 个字符', trigger: 'blur' }
         ],
         birthday: [
           { required: true, message: '请选择生日', trigger: 'change' }
@@ -96,10 +95,12 @@ export default {
           { required: true, message: '请选择岗位', trigger: 'change' }
         ],
         phoneNumber: [
-          { required: true, message: '请填写电话', trigger: 'blur' }
+          { required: true, message: '请填写电话', trigger: 'blur' },
+          {pattern: /^1[0-9]{10}$/ ,message: '请输入11位数字',trigger: 'blur'}
         ],
         email: [
-          { required: true, message: '请填写邮箱', trigger: 'blur' }
+          { required: true, message: '请填写邮箱', trigger: 'blur' },
+          {pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,message: '邮箱格式错误',trigger: 'blur'}
         ],
         position: [
           { required: true, message: '请填写工作地址', trigger: 'blur' }

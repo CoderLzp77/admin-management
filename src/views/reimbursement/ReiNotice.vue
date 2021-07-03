@@ -9,11 +9,11 @@
             :data="tableData"
             border
             style="width: 100%">
-          <el-table-column prop="time" label="申请报销时间"  align="center" >
+          <el-table-column prop="applyTime" label="申请报销时间"  align="center" >
           </el-table-column>
-          <el-table-column prop="amount" label="报销金额"  align="center">
+          <el-table-column prop="totalAmount" label="报销金额"  align="center">
           </el-table-column>
-          <el-table-column prop="category" label="报销科目"  align="center">
+          <el-table-column prop="reimId" label="报销科目"  align="center">
           </el-table-column>
           <el-table-column prop="state" label="状态"  align="center">
           </el-table-column>
@@ -36,26 +36,25 @@
         </div>
       </template>
     </div>
+    </notification3>
     <el-dialog
         title="详情"
         :visible.sync="dialogVisible"
         width="50%">
       <el-table
-          :data="showData"
+          :data="showData.expenseitems"
           style="width: 100%">
         <el-table-column
-            prop="username"
-            label="请假人姓名"
-            width="180">
+            prop="consumeTime"
+            label="消费时间">
         </el-table-column>
         <el-table-column
-            prop="state"
-            label="权限"
-            width="180">
+            prop="cost"
+            label="单笔开销">
         </el-table-column>
         <el-table-column
-            prop="directBoss"
-            label="顶头上司">
+            prop="remark"
+            label="备注">
         </el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
@@ -63,12 +62,13 @@
             <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
           </span>
     </el-dialog>
-    </notification3>
   </div>
 </template>
 
 <script>
 import Notification3 from "@/components/content/Notification3";
+import {get} from "@/network/request";
+
 export default {
   name: "ReiNotice",
   components: {
@@ -77,13 +77,28 @@ export default {
   data(){
     return {
       tableData: [],
-      showData: [],
+      showData: {
+        expenseitems: []
+      },
       dialogVisible: false
     }
   },
   methods: {
+    async getData(){
+       get('/Reimburse/queryReimById',{
+         params: {
+           id: localStorage.getItem('staffId')
+         }
+       }).then(res =>{
+         console.log(res);
+         this.tableData = res.data.data
+       })
+    },
     handleClick(row){
-
+      console.log(row);
+      this.dialogVisible = true
+      this.showData = row
+      //this.getData()
     },
     handleSizeChange(){
 
@@ -91,6 +106,9 @@ export default {
     handleCurrentChange(){
 
     }
+  },
+  created() {
+    this.getData()
   }
 }
 </script>

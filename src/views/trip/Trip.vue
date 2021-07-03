@@ -7,23 +7,26 @@
         <span>基础信息填写</span>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="开始时间" required>
-            <el-form-item prop="date1">
-              <el-date-picker type="date" placeholder="请选择日期开始时间" v-model="ruleForm.date1" style="width: 30%;"></el-date-picker>
+            <el-form-item prop="startTime">
+              <el-date-picker type="date" placeholder="请选择日期开始时间" v-model="ruleForm.startTime" style="width: 30%;"></el-date-picker>
             </el-form-item>
           </el-form-item>
           <el-form-item label="结束时间" required>
-            <el-form-item prop="date1">
-              <el-date-picker type="date" placeholder="请选择日期结束时间" v-model="ruleForm.date2" style="width: 30%;"></el-date-picker>
+            <el-form-item prop="endTime">
+              <el-date-picker type="date" placeholder="请选择日期结束时间" v-model="ruleForm.endTime" style="width: 30%;"></el-date-picker>
             </el-form-item>
           </el-form-item>
-          <el-form-item label="出差天数" prop="vacateDay" required>
-            <el-input v-model="ruleForm.vacateDay" style="width: 280px"></el-input>
+          <el-form-item label="出差天数" prop="duration" required>
+            <el-input v-model="ruleForm.duration" style="width: 280px"></el-input>
           </el-form-item>
-          <el-form-item label="预计费用" prop="cost" required>
-            <el-input v-model="ruleForm.cost" style="width: 280px"></el-input>
+          <el-form-item label="预计费用" prop="amount" required>
+            <el-input v-model="ruleForm.amount" style="width: 280px"></el-input>
           </el-form-item>
-          <el-form-item label="出差原因叙述" prop="desc">
-            <el-input type="textarea" rows="8" v-model="ruleForm.desc" style="font-size: 18px;width: 500px"></el-input>
+          <el-form-item label="出差类别" prop="category" required>
+            <el-input v-model="ruleForm.category" style="width: 280px"></el-input>
+          </el-form-item>
+          <el-form-item label="出差原因叙述" prop="reason">
+            <el-input type="textarea" rows="8" v-model="ruleForm.reason" style="font-size: 18px;width: 500px"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">提交申请</el-button>
@@ -36,13 +39,13 @@
         <div class="trip-right">
         <span>详细信息填写</span><br>
         行程：<br>
-        <trip-child></trip-child>
-        <trip-child></trip-child>
-        <trip-child></trip-child>
-        <trip-child></trip-child>
+        <trip-child @schedules="schedules"></trip-child>
+        <trip-child @schedules="schedules"></trip-child>
+        <trip-child @schedules="schedules"></trip-child>
+        <trip-child @schedules="schedules"></trip-child>
         其他消费: <br>
-        <other-cost></other-cost>
-        <other-cost></other-cost>
+        <other-cost @otherconsume="otherconsume"></other-cost>
+        <other-cost @otherconsume="otherconsume"></other-cost>
       </div>
       </el-main>
     </el-container>
@@ -52,6 +55,8 @@
 <script>
 import TripChild from "@/views/trip/childcomponents/TripChild";
 import OtherCost from "@/views/trip/childcomponents/OtherCost";
+import axios from "axios";
+import Qs from "qs";
 export default {
   name: "Trip",
   components: {
@@ -65,12 +70,19 @@ export default {
       expenses: '',
       money: '',
       costTime: '',
+      schedule:{},
       ruleForm: {
-        date1: '',
-        date2: '',
-        vacateDay: '',
-        cost: '',
-        desc: ''
+        startTime: '',
+        endTime: '',
+        duration: '',
+        amount: '',
+        reason: '',
+        category:'',
+        state:0,
+        staffId:localStorage.getItem("staffId"),
+        approvalId:'xz',
+        otherconsumes:[],
+        schedules:[]
       },
       rules: {
         date1: [
@@ -95,7 +107,12 @@ export default {
     submitForm(formName) {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          console.log(this.ruleForm)
           alert('submit!');
+          axios.post("http://localhost:8081/Trip/AddTrip",Qs.parse(this.ruleForm))
+          .then(res=>{
+            console.log(res)
+          })
         } else {
           console.log('error submit!!');
           return false;
@@ -104,7 +121,18 @@ export default {
     },
     resetForm(formName) {
       this.$refs.ruleForm.resetFields()
+    },
+    schedules(val){
+      this.ruleForm.schedules.push(val)
+      console.log(this.ruleForm.schedules)
+    },
+    otherconsume(val){
+      this.ruleForm.otherconsumes.push(val)
+      console.log(this.ruleForm.otherconsumes)
     }
+  },
+  watch:{
+
   }
 }
 </script>

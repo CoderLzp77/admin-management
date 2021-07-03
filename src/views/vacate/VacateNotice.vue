@@ -13,11 +13,13 @@
             </el-table-column>
             <el-table-column prop="endTime" label="申请请假结束时间"   align="center">
             </el-table-column>
-            <el-table-column prop="applyTime" label="请假天数"  align="center">
+            <el-table-column prop="duration" label="请假天数"  align="center">
             </el-table-column>
             <el-table-column prop="category" label="请假科目"  align="center">
             </el-table-column>
-            <el-table-column prop="state" label="状态"  align="center">
+            <el-table-column prop="state" label="状态"  align="center" :formatter="state">
+            </el-table-column>
+            <el-table-column prop="reason" label="请假原因" align="center">
             </el-table-column>
             <el-table-column label="查看详情"  align="center">
               <template slot-scope="scope">
@@ -47,7 +49,7 @@
           :data="showData"
           style="width: 100%">
         <el-table-column
-            prop="username"
+            prop="staffName"
             label="请假人姓名"
             width="180">
         </el-table-column>
@@ -83,13 +85,13 @@ export default {
       showData: [],
       dialogVisible:false,
       pageNum: 1,
-      pageSize: 3
+      pageSize: 1
     }
   },
   methods: {
     handleClick(row){
       console.log(row)
-      this.showData = row
+    /*  this.showData = row*/
       this.dialogVisible=true
     },
     handleCurrentChange(val){
@@ -101,7 +103,32 @@ export default {
       this.getData()
     },
     async getData(){
+    axios.get("http://localhost:8081/Staff/queryStaffById",{
+      params:{
+        id:localStorage.getItem("staffId"),
+        pageNum:this.pageNum,
+        pageSize:this.pageSize
+      }
+    }).then(res=>{
+      console.log(res)
+      this.tableData=[]
+      this.showData=res.data.data
+      console.log(this.showData)
+      for (let i = 0; i < res.data.data.length; i++) {
+        this.tableData=res.data.data[i].askforleave
+      }
 
+    })
+    },
+    state(row,column){
+      switch (row.state){
+        case 0:
+          return '待审批'
+        case 1:
+          return '已批准'
+        case 2:
+          return "未批准"
+      }
     }
   },
   created() {

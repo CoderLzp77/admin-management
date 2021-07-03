@@ -9,15 +9,15 @@
                :data="tableData"
                border
                style="width: 100%">
-             <el-table-column prop="username" label="申请人姓名" align="center" >
+             <el-table-column prop="approvalId" label="申请人姓名" align="center" >
              </el-table-column>
-             <el-table-column prop="vacateDept" label="申请人部门"   align="center">
+             <el-table-column prop="applicant" label="申请人部门"   align="center">
              </el-table-column>
-             <el-table-column prop="endDate" label="申请时间"   align="center">
+             <el-table-column prop="applyTime" label="申请时间"   align="center">
              </el-table-column>
-             <el-table-column prop="vacateDay" label="报销金额"   align="center">
+             <el-table-column prop="totalAmount" label="报销金额"   align="center">
              </el-table-column>
-             <el-table-column prop="vacateSub" label="报销科目"   align="center">
+             <el-table-column prop="subjectId" label="报销科目"   align="center">
              </el-table-column>
              <el-table-column label="批准"  align="center">
                <template slot-scope="scope">
@@ -53,10 +53,22 @@
         title="详情"
         :visible.sync="dialogVisible"
         width="50%">
-      <label for="username" class="details">出差人姓名</label>
-      <el-input id="username" v-model="showDate.staff" disabled></el-input>
-      <label for="boss" class="details">上司</label>
-      <el-input id="boss" v-model="showDate.staff" disabled></el-input>
+      <el-table
+          :data="showData.expenseitems"
+          style="width: 100%">
+        <el-table-column
+            prop="consumeTime"
+            label="消费时间">
+        </el-table-column>
+        <el-table-column
+            prop="cost"
+            label="单笔开销">
+        </el-table-column>
+        <el-table-column
+            prop="remark"
+            label="备注">
+        </el-table-column>
+      </el-table>
       <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -68,6 +80,7 @@
 <script>
 import Notification3 from "@/components/content/Notification3";
 import axios from "axios";
+import {get,getAll} from "@/network/request";
 export default {
   name: "ReiManage",
   components: {
@@ -76,13 +89,19 @@ export default {
   data(){
     return {
       tableData: [],
-      showDate: {
-
+      showData: {
+        expenseitems: []
       },
       dialogVisible: false
     }
   },
   methods: {
+    async getData(){
+      await getAll('/Reimburse/queryApprove').then(res =>{
+       /* console.log(res);*/
+        this.tableData = res.data.data
+      })
+    },
     disAgree(row){
 
     },
@@ -90,9 +109,10 @@ export default {
 
     },
     handleClick(row){
-      console.log(row)
-      this.showDate=row
+     /* console.log(row)*/
       this.dialogVisible=true
+      this.showData=row
+      this.getData()
     },
     handleCurrentChange(val){
       this.pageNum = val
@@ -103,9 +123,15 @@ export default {
       this.getDate()
     }
   },
+  created() {
+    this.getData()
+  }
 }
 </script>
 
 <style scoped>
-
+p{
+  text-align: center;
+  font-size: 22px;
+}
 </style>

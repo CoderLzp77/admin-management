@@ -23,7 +23,7 @@
     </div>
     <div class="holiday-manage-table">
       <el-table :data="tableData" border style="width: 100%">
-        <el-table-column prop="staffId" label="员放假开始日期">
+        <el-table-column prop="staffId" label="放假开始日期">
         </el-table-column>
         <el-table-column prop="staffName" label="放假结束日期">
         </el-table-column>

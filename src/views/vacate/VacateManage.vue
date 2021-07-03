@@ -17,6 +17,12 @@
            </el-table-column>
            <el-table-column prop="duration" label="请假天数"   align="center">
            </el-table-column>
+           <el-table-column prop="startTime" label="申请请假开始时间"   align="center">
+           </el-table-column>
+           <el-table-column prop="endTime" label="申请请假结束时间"   align="center">
+           </el-table-column>
+           <el-table-column prop="duration" label="请假天数"   align="center">
+           </el-table-column>
            <el-table-column prop="category" label="请假科目"   align="center">
            </el-table-column>
            <el-table-column label="批准"  align="center">
@@ -75,18 +81,18 @@ export default {
   data(){
     return {
       tableData: [],
+      alldata: [],
       showDate: {
         staff:{}
       },
       askforleave: [],
-      alldata:[],
       dialogVisible: false,
       pageNum: 1,
-      pageSize: 3
+      pageSize: 1
     }
   },
   methods: {
-    async getData(){
+ /*   async getData(){
       this.alldata=[];
         axios.get("http://192.168.1.103:8081/Staff/Approve",{
           params:{
@@ -109,7 +115,7 @@ export default {
 
           console.log(this.alldata)
         })
-    },
+    },*/
     disAgree(row){
       axios.put("http://192.168.1.103:8081/Askforleave/updateStateById/3/"+row.leaveId).then(res=>{
         console.log(res)
@@ -133,10 +139,43 @@ export default {
       }
     })
     },
+     getData(){
+        axios.get('http://192.168.1.103:8081/Staff/Approve',{
+        params: {
+          pageNum: this.pageNum,
+          pageSize: this.pageSize
+        }
+      }).then(res => {
+/*        console.log(res);*/
+        this.alldata=[]
+        this.tableData = res.data.data
+        for (let i = 0; i < this.tableData.length; i++) {
+          this.askforleave=this.tableData[i].askforleave
+          /*console.log(this.askforleave)*/
+          for (let k = 0; k <this.askforleave.length ; k++) {
+           /* console.log(this.askforleave[k])*/
+            this.$set(this.askforleave[k],'name',this.tableData[i].userName)
+            this.$set(this.askforleave[k],'organization',this.tableData[i].organization.name)
+          }
+          for (let j = 0; j < this.askforleave.length; j++) {
+            this.alldata.push(this.askforleave[j])
+          }
+        }
+
+        console.log(this.alldata)
+      })
+    },
+ /*   disAgree(row){
+
+    },
+    agree(row){
+
+    },*/
     handleClick(row){
+      this.dialogVisible=true
       console.log(row)
       this.showDate=row
-      this.dialogVisible=true
+      //this.getData()
     },
     handleCurrentChange(val){
       this.pageNum = val
@@ -146,10 +185,11 @@ export default {
       this.pageSize = val
       this.getData()
     }*/
-  },
+    },
   created() {
     this.getData()
   },
+
 }
 </script>
 

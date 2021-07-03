@@ -9,17 +9,17 @@
                :data="tableData"
                border
                style="width: 100%">
-             <el-table-column prop="username" label="申请人姓名" align="center" >
+             <el-table-column prop="staff.staffName" label="申请人姓名" align="center" >
              </el-table-column>
-             <el-table-column prop="vacateDept" label="申请人部门"   align="center">
+             <el-table-column prop="organization.name" label="申请人部门"   align="center">
              </el-table-column>
-             <el-table-column prop="endDate" label="申请出差结束时间"   align="center">
+             <el-table-column prop="startTime" label="申请出差开始时间"   align="center">
              </el-table-column>
-             <el-table-column prop="vacateDay" label="申请出差结束时间"   align="center">
+             <el-table-column prop="endTime" label="申请出差结束时间"   align="center">
              </el-table-column>
-             <el-table-column prop="vacateSub" label="出差天数"   align="center">
+             <el-table-column prop="duration" label="出差天数"   align="center">
              </el-table-column>
-             <el-table-column prop="vacateSub" label="出差科目"   align="center">
+             <el-table-column prop="category" label="出差科目"   align="center">
              </el-table-column>
              <el-table-column label="批准"  align="center">
                <template slot-scope="scope">
@@ -45,6 +45,7 @@
 
 <script>
 import Notification2 from "@/components/content/Notification2";
+import axios from "axios";
 export default {
   name: "TripManage",
   components: {
@@ -56,15 +57,41 @@ export default {
     }
   },
   methods: {
+    getData(){
+      axios.get("http://localhost:8081/Trip/queryApprove").then(res=>{
+        console.log(res)
+        this.tableData=res.data.data
+      })
+    },
     agree(row){
-
+    axios.put("http://localhost:8081/Trip/updateStaffById/1/"+row.tripId)
+      .then(res=>{
+        if (res.data.status === 200){
+          this.$message.success("已审批")
+        }else{
+          this.$message.error(res.data.message)
+        }
+        this.getData()
+      })
     },
     disAgree(row){
-
+      console.log(row)
+      axios.put("http://localhost:8081/Trip/updateStaffById/2/"+row.tripId)
+          .then(res=>{
+            if (res.data.status === 200){
+              this.$message.success("已拒绝")
+            }else{
+              this.$message.error(res.data.message)
+            }
+            this.getData()
+          })
     },
     handleClick(row){
 
     }
+  },
+  created() {
+ this.getData()
   }
 }
 </script>
