@@ -50,13 +50,13 @@
         width="30%">
       <el-form ref="form" :model="showData" label-width="80px">
         <el-form-item label="岗位编号:">
-          <el-input v-model="showData.JobId"></el-input>
+          <el-input v-model="showData.jobId" disabled></el-input>
         </el-form-item>
         <el-form-item label="岗位名称:">
-          <el-input v-model="showData.Job"></el-input>
+          <el-input v-model="showData.jobName"></el-input>
         </el-form-item>
         <el-form-item label="岗位描述:">
-          <el-input v-model="showData.describe"></el-input>
+          <el-input v-model="showData.responsibilities"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -69,13 +69,13 @@
         :visible.sync="dialogVisible2"
         width="30%">
       <el-form :model="submitTable"  ref="ruleForm" label-width="90px" class="demo-Staff" >
-        <el-form-item label="岗位编号：" prop="JobId">
+        <el-form-item label="岗位编号：" prop="jobId">
           <el-input v-model="submitTable.jobId"></el-input>
         </el-form-item>
-        <el-form-item label="岗位名称：" prop="Job">
+        <el-form-item label="岗位名称：" prop="jobName">
           <el-input v-model="submitTable.jobName"></el-input>
         </el-form-item>
-        <el-form-item label="岗位描述：" prop="describe">
+        <el-form-item label="岗位描述：" prop="responsibilities">
           <el-input v-model="submitTable.responsibilities"></el-input>
         </el-form-item>
       </el-form>
@@ -90,6 +90,7 @@
 <script>
 import axios from "axios";
 import {get} from "@/network/request";
+import Qs from "qs";
 export default {
   name: "CompanyPos",
   data(){
@@ -101,14 +102,16 @@ export default {
       showData: [],
       submitTable: {},
       pageNum: 1,
-      pageSize: 3
+      pageSize: 3,
+      job:{}
     }
   },
   methods: {
     async getData(){
       await axios.get('http://192.168.1.103:8081/Job/ShowJobInfoLimit',{
         params: {
-          pageNum: this.pageNum
+          pageNum: this.pageNum,
+          pageSize:this.pageSize
         }
       }).then(res => {
         console.log(res);
@@ -125,25 +128,45 @@ export default {
     },
     handleCurrentChange(val){
       this.pageNum = val
+      this.getData()
     },
     handleSizeChange(val){
       this.pageSize = val
+      this.getData()
     },
     addJob(submitTable){
       this.dialogVisible2 = false
+      axios.post("http://localhost:8081/Job/AddJob",Qs.parse(this.submitTable))
+      .then(res=>{
+        if (res.data.status === 200){
+          this.getData()
+          this.$message.success("添加成功")
+        }else {
+          this.$message.error(res.data.message)
+        }
+      })
       /*console.log(submitTable);*/
     },
     deleteJob(row){
-      axios.delete('http://localhost:8081/Job/DeleteJob/'+row.JobId).then(res => {
+      axios.delete('http://localhost:8081/Job/DeleteJob/'+row.jobId).then(res => {
         if (res.data.status === 200){
           this.$message.success("删除成功")
+          this.getData()
         }else {
           this.$message.error(res.data.message)
         }
       })
     },
     modify(){
-
+     axios.post("http://localhost:8081/Job/UpdateJob",Qs.parse(this.showData))
+      .then(res=>{
+        if (res.data.status === 200){
+          this.dialogVisible=false
+          this.$message.success("修改成功")
+        }else{
+          this.$message.error(res.data.message)
+        }
+      })
     }
   },
   created() {
