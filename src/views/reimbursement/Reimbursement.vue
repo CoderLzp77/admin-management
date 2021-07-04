@@ -2,41 +2,42 @@
   <div id="reimbursement">
     <p>报销申请填写</p>
     <div>
-      报销科目 ： <el-select v-model="value" placeholder="请选择报销科目">
-      <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-      </el-option>
+      报销科目 ：  <el-select v-model="reimbursement.contentId">
+      <el-option v-for="item in reimbursementSub" :key="item.subjectId" :value="item.subjectId" :label="item.subjectName"></el-option>
     </el-select>
     </div>
      <div class="reimbursement-main">
-       <el-form :inline="true" :model="form" class="demo-form-inline">
-         <div v-for="(item,index) in form.formInline" :key="index" class="rei-table">
-         <el-form-item label="报销内容：" :prop="'formInline.'+index+ '.content'">
-           <el-input v-model="item.content" placeholder="报销内容"></el-input>
+       <el-form  :model="reimbursement" class="demo-form-inline">
+         <el-form-item label="报销内容：">
+<!--           <el-input v-model="reimbursement.content" placeholder="报销内容"></el-input>-->
+           <el-select v-model="reimbursement.subjectId">
+             <el-option v-for="item in reimbursementcontent" :key="item.contentId" :value="item.contentId" :label="item.contentName"></el-option>
+           </el-select>
          </el-form-item>
          <el-form-item label="报销金额：">
-           <el-input v-model="item.reiMon" placeholder="单位/元"></el-input>
+           <el-input v-model="reimbursement.totalAmount" placeholder="单位/元"></el-input>
          </el-form-item>
          <el-form-item label="消费时间：">
-           <el-input v-model="item.reiTime" placeholder=""></el-input>
+           <el-date-picker
+               v-model="reimbursement.consumeTime"
+               placeholder="选择时间">
+           </el-date-picker>
          </el-form-item>
          <el-form-item label="备注：">
-           <el-input v-model="item.remark" placeholder=""></el-input>
+           <el-input v-model="reimbursement.remark" placeholder=""></el-input>
          </el-form-item>
-         </div>
-         <el-button @click="addItem" type="info" style="margin-left: 80%;margin-bottom: 5px">添加报销</el-button>
        </el-form>
      </div>
-       报销总额：<input type="text" v-model="total" style="height: 30px" placeholder="单位/元"><br><br>
+       报销总额：<input type="text" v-model="reimbursement.cost" style="height: 30px" placeholder="单位/元"><br><br>
     <el-button type="primary" @click="onSubmit">提交申请</el-button>
     <el-button type="info" @click="cancel">取消申请</el-button>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import Qs from "qs";
+
 export default {
   name: "Reimbursement",
   data(){
@@ -47,41 +48,56 @@ export default {
           value: ''
         }],
       value: '',
-      form: {
-        formInline: [
-          {
-          content: '',
-          reiMon: '',
-          reiTime: '',
-          remark: ''
-          }
-        ]
+      reimbursementSub:'',
+      reimbursementcontent:'',
+      reimbursement: {
+        applicant:localStorage.getItem("staffId"),
+        contentId:'',
+        subjectId:'',
+        totalAmount:'',
+        consumeTime:'',
+        remark:'',
+        cost:'',
+        approvalId:'xz'
       },
-      total: ''
     }
   },
   methods: {
-    addItem(){
-      this.form.formInline.push({
-        content: '',
-        reiMon: '',
-        reiTime: '',
-        remark: ''
-      })
-    },
-    onSubmit(){
 
+    onSubmit(){
+    axios.post("http://localhost:8081/Reimburse/AddReimburse",Qs.parse(this.reimbursement))
+      .then(res=>{
+        if (res.data.status === 200){
+          this.$message.success("申请成功")
+          this.$router.push('/reiNotice')
+        }else {
+          this.$message.error(res.data.message)
+        }
+      })
     },
     cancel(){
 
+    },
+    getRei(){
+      axios.get("http://localhost:8081/Reimburse/queryAllSub").then(res=>{
+        this.reimbursementSub=res.data.data
+    })
+    },
+    getContent(){
+      axios.get("http://localhost:8081/Reimburse/queryAllContent").then(res=>{
+        this.reimbursementcontent=res.data.data
+      })
     }
+  },
+  created() {
+    this.getRei()
+    this.getContent()
   }
 }
 </script>
 
 <style scoped>
 .reimbursement-main{
-  border: 1px dashed rgba(0,0,0,.5);
   margin-top: 10px;
   margin-bottom: 30px;
 }

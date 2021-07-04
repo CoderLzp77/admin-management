@@ -89,6 +89,8 @@ export default {
   data(){
     return {
       tableData: [],
+      pageNum:1,
+      pageSize:1,
       showData: {
         expenseitems: []
       },
@@ -97,8 +99,13 @@ export default {
   },
   methods: {
     async getData(){
-      await getAll('/Reimburse/queryApprove').then(res =>{
-       /* console.log(res);*/
+      await axios.get('http://localhost:8081/Reimburse/queryApprove',{
+        params:{
+          pageNum:this.pageNum,
+          pageSize:this.pageSize
+        }
+      }).then(res =>{
+        console.log(res);
         this.tableData = res.data.data
       })
     },
@@ -137,7 +144,7 @@ export default {
     handleSizeChange(val){
       this.pageSize = val
       this.getData()
-    }
+    },
   },
   created() {
     this.getData()

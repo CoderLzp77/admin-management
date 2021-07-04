@@ -15,7 +15,7 @@
           </el-table-column>
           <el-table-column prop="reimId" label="报销科目"  align="center">
           </el-table-column>
-          <el-table-column prop="state" label="状态"  align="center">
+          <el-table-column prop="state" label="状态"  align="center" :formatter="state">
           </el-table-column>
           <el-table-column label="查看详情"  align="center">
             <template slot-scope="scope">
@@ -68,6 +68,7 @@
 <script>
 import Notification3 from "@/components/content/Notification3";
 import {get} from "@/network/request";
+import axios from "axios";
 
 export default {
   name: "ReiNotice",
@@ -80,14 +81,18 @@ export default {
       showData: {
         expenseitems: []
       },
+      pageNum:1,
+      pageSize:3,
       dialogVisible: false
     }
   },
   methods: {
     async getData(){
-       get('/Reimburse/queryReimById',{
+       axios.get('http://localhost:8081/Reimburse/queryReimById',{
          params: {
-           id: localStorage.getItem('staffId')
+           id: localStorage.getItem('staffId'),
+           pageNum:this.pageNum,
+           pageSize:this.pageSize
          }
        }).then(res =>{
          console.log(res);
@@ -100,11 +105,23 @@ export default {
       this.showData = row
       //this.getData()
     },
-    handleSizeChange(){
-
+    handleSizeChange(val){
+      this.pageSize = val
+      this.getData()
     },
-    handleCurrentChange(){
-
+    handleCurrentChange(val){
+      this.pageNum = val
+      this.getData()
+    },
+    state(row){
+      switch (row.state){
+        case 0:
+          return '未审批'
+        case 1:
+          return '已通过'
+        case 2:
+          return '已拒绝'
+      }
     }
   },
   created() {

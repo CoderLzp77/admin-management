@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     async getData(){
-      await axios.get('http://192.168.1.103:8081/Job/ShowJobInfoLimit',{
+      await axios.get('http://localhost:8081/Job/ShowJobInfoLimit',{
         params: {
           pageNum: this.pageNum,
           pageSize:this.pageSize

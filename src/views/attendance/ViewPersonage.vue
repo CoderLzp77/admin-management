@@ -2,22 +2,18 @@
   <div id="view-personage">
     <p style="color: #31708f"><i class="el-icon-user-solid"></i>个人考勤查看</p>
     <div class="view-personage-table">
-      <el-dropdown @command="handleCommand">
-        <span class="el-dropdown-link">
-          日考勤<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>月考勤</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+        <el-select v-model="commod" placeholder="考勤列表">
+          <el-option label="月考勤" value="1"></el-option>
+          <el-option label="日考勤" value="2"></el-option>
+        </el-select>
       <div class="block">
         <span class="demonstration">选择时间点： </span>
         <el-date-picker
             v-model="date1"
-            type="date"
+            type="month"
             placeholder="选择日期">
         </el-date-picker>
-        <el-button type="primary"><i class="el-icon-search"></i>查看</el-button>
+        <el-button type="primary" @click="getOwn"><i class="el-icon-search"></i>查看</el-button>
       </div>
       <el-table
           :data="tableData"
@@ -25,11 +21,11 @@
           style="width: 100%"
           :row-class-name="tableRowClassName">
         <el-table-column
-            prop="date"
+            prop="checkInTime"
             label="打卡时间">
         </el-table-column>
         <el-table-column
-            prop="name"
+            prop="remark"
             label="备注">
         </el-table-column>
       </el-table>
@@ -54,6 +50,7 @@
 
 <script>
 import {get} from "@/network/request";
+import axios from "axios";
 
 export default {
   name: "ViewPersonage",
@@ -61,6 +58,7 @@ export default {
     return {
       date1: '',
       region: '',
+      commod:'',
       tableData: [],
       pageNum: 1,
       pageSize: 3
@@ -68,14 +66,17 @@ export default {
   },
   methods: {
     async getData(){
-     await get('/',{
-
+     await axios.get("http://localhost:8081/Attendance/queryAttendanceDay",{
+       params:{
+         staffId:localStorage.getItem("staffId"),
+         pageNum:this.pageNum,
+         pageSize:this.pageSize
+       }
      }).then(res => {
-       this.tableData = res.data.data
+       console.log(res)
      })
     },
     handleCommand(){
-      console.log("sdf");
     },
     tableRowClassName({row, rowIndex}) {
       if (rowIndex%2 === 1) {
@@ -89,10 +90,23 @@ export default {
     handleCurrentChange(val){
       this.pageNum = val
       this.getData()
+    },
+    getOwn(){
+      axios.get("http://localhost:8081/Attendance/queryAttendanceMonthByTime",{
+        params:{
+          staffId:localStorage.getItem("staffId"),
+          date:this.date1,
+          pageNum:1,
+          pageSize:5
+        }
+      }).then(res=>{
+        console.log(res.data.data.attendanceVos)
+        this.tableData=res.data.data.attendanceVos
+      })
     }
   },
   created() {
-    //this.getData()
+    this.getOwn()
   }
 }
 </script>

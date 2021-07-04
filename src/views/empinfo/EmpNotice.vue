@@ -66,19 +66,9 @@ export default {
   },
   methods: {
     getJob(){
-      axios.get("http://localhost:8081/Job/ShowJobInfoLimit",{
-        params:{
-          pageNum:1
-        }
-      }).then(res=>{
-        console.log(this.Jobdata)
+      axios.get("http://localhost:8081/Job/ShowJobInfoLimit").then(res=>{
+        console.log(res)
         this.Jobdata=res.data.data
-        let map=new Map
-        for (let i = 0; i < this.Jobdata.length; i++) {
-          map.set(this.Jobdata[i].jobId,this.Jobdata[i].jobName)
-          this.jobmap=map
-        }
-        console.log(this.Jobdata)
       })
     },
     onSubmit() {
@@ -108,12 +98,22 @@ export default {
         })
     },
     job(row){
-      return this.jobmap.get(row.jobId)
+      return this.JobData.get(row.jobId)
     },
   },
   created() {
     this.getJob()
     this.getData()
+  },
+  computed:{
+    JobData(){
+      let map=new Map
+      for (let i = 0; i < this.Jobdata.length; i++) {
+        map.set(this.Jobdata[i].jobId,this.Jobdata[i].jobName)
+     /*   this.jobmap=map*/
+      }
+      return map
+    }
   }
 }
 </script>

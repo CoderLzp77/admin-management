@@ -117,7 +117,7 @@ export default {
         })
     },*/
     disAgree(row){
-      axios.put("http://192.168.1.103:8081/Askforleave/updateStateById/3/"+row.leaveId).then(res=>{
+      axios.put("http://localhost:8081/Askforleave/updateStateById/3/"+row.leaveId).then(res=>{
         console.log(res)
         if (res.data.status === 200){
           this.$message.success("已拒绝")
@@ -129,7 +129,7 @@ export default {
     },
     agree(row){
       console.log(row.leaveId)
-    axios.put("http://192.168.1.103:8081/Askforleave/updateStateById/2/"+row.leaveId).then(res=>{
+    axios.put("http://localhost:8081/Askforleave/updateStateById/2/"+row.leaveId).then(res=>{
       console.log(res)
       if (res.data.status === 200){
         this.$message.success("已批准")
@@ -140,7 +140,7 @@ export default {
     })
     },
      getData(){
-        axios.get('http://192.168.1.103:8081/Staff/Approve',{
+        axios.get('http://localhost:8081/Staff/Approve',{
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize
