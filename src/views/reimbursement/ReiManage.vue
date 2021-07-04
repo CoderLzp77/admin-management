@@ -103,10 +103,26 @@ export default {
       })
     },
     disAgree(row){
-
+      axios.put("http://localhost:8081/Reimburse/updateStateById/2/"+row.reimId)
+          .then(res=>{
+            if (res.data.status === 200){
+              this.getData()
+              this.$message.success("已拒绝")
+            }else {
+              this.$message.error(res.data.message)
+            }
+          })
     },
     agree(row){
-
+    axios.put("http://localhost:8081/Reimburse/updateStateById/1/"+row.reimId)
+      .then(res=>{
+        if (res.data.status === 200){
+          this.getData()
+          this.$message.success("已批准")
+        }else {
+          this.$message.error(res.data.message)
+        }
+      })
     },
     handleClick(row){
      /* console.log(row)*/
@@ -116,11 +132,11 @@ export default {
     },
     handleCurrentChange(val){
       this.pageNum = val
-      this.getDate()
+      this.getData()
     },
     handleSizeChange(val){
       this.pageSize = val
-      this.getDate()
+      this.getData()
     }
   },
   created() {

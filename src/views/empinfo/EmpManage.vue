@@ -22,7 +22,7 @@
           </el-table-column>
           <el-table-column prop="organization.name" label="部门"  align="center" >
           </el-table-column>
-          <el-table-column prop="jobId" label="岗位"  align="center" >
+          <el-table-column prop="jobId" label="岗位"  align="center" :formatter="job">
           </el-table-column>
           <el-table-column prop="directBoss" label="直接领导"  align="center" >
           </el-table-column>
@@ -68,7 +68,10 @@
             </el-select>
           </el-form-item>
           <el-form-item label="岗位:">
-            <el-input v-model="Staff.jobId"></el-input>
+<!--            <el-input v-model="Staff.jobId"></el-input>-->
+            <el-select v-model="Staff.jobId"  >
+              <el-option :label="item.jobName" :value="item.jobId" v-for="item in Jobdata" :key="item.jobId"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="直接领导:" prop="directBoss">
             <el-input v-model="Staff.directBoss"></el-input>
@@ -106,6 +109,8 @@ export default {
       }
     }
     return {
+      Jobdata:[],
+      jobmap:new Map,
       dialogVisible: false,
       empMessage: '',
       tableData: [],
@@ -120,7 +125,7 @@ export default {
         jobId: '',
         directBoss: '',
         phoneNumber: '',
-        email: ''
+        email: '',
       },
       rules: {
         directBoss: [
@@ -138,6 +143,22 @@ export default {
     }
   },
   methods: {
+    getJob(){
+      axios.get("http://localhost:8081/Job/ShowJobInfoLimit",{
+        params:{
+          pageNum:1
+        }
+      }).then(res=>{
+        console.log(this.Jobdata)
+        this.Jobdata=res.data.data
+        let map=new Map
+        for (let i = 0; i < this.Jobdata.length; i++) {
+          map.set(this.Jobdata[i].jobId,this.Jobdata[i].jobName)
+          this.jobmap=map
+        }
+        console.log(this.Jobdata)
+      })
+    },
     async getData(){
        await  get('/Staff/queryAll' ,{
          params: {
@@ -146,11 +167,15 @@ export default {
            pageSize: this.pageSize
          }
       }).then(res => {
+         console.log(res)
          this.tableData = res.data.data
        })
     },
     to(){
       this.$router.push('/addEmp')
+    },
+    job(row){
+      return this.jobmap.get(row.jobId)
     },
     searchForEmp(){
       this.getData()
@@ -191,6 +216,7 @@ export default {
   },
   created() {
     this.getData()
+    this.getJob()
   }
 }
 </script>

@@ -17,7 +17,7 @@
           </el-table-column>
           <el-table-column prop="category" label="出差科目"   align="center">
           </el-table-column>
-          <el-table-column prop="state" label="状态"   align="center">
+          <el-table-column prop="state" label="状态"   align="center" :formatter="state">
           </el-table-column>
           <el-table-column label="查看详情" align="center">
             <template slot-scope="scope">
@@ -26,20 +26,45 @@
           </el-table-column>
         </el-table>
       </template>
+      <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-sizes="[1, 2, 3, 4, 5]"
+          :page-size="3"
+          layout="sizes,prev, pager, next"
+          :total="30">
+      </el-pagination>
     </div>
     </notification2>
     <el-dialog
         title="详情"
         :visible.sync="dialogVisible"
         width="35%">
-      <el-form ref="form" :model="showData" label-width="100px">
-        <el-form-item label="申请时间:">
-          <span>{{showData.applyTime}}</span>
-        </el-form-item>
-        <el-form-item label="申请原因:">
-          <span>{{showData.reason}}</span>
-        </el-form-item>
-      </el-form>
+     <el-table
+         :data="showData"
+         stripe
+         style="width: 100%">
+       <el-table-column prop="cost" label="花费" align="center" >
+       </el-table-column>
+       <el-table-column prop="departure" label="出发地" align="center" >
+       </el-table-column>
+       <el-table-column prop="destination" label="目的地" align="center" >
+       </el-table-column>
+       <el-table-column prop="transport" label="交通工具" align="center" >
+       </el-table-column>
+     </el-table>
+      <el-divider></el-divider>
+      <el-table
+          :data="otherconsumes"
+          stripe
+          style="width: 100%">
+        <el-table-column prop="consumeTime" label="消费时间" align="center" >
+        </el-table-column>
+        <el-table-column prop="consumeType" label="消费类型" align="center" >
+        </el-table-column>
+        <el-table-column prop="cost" label="消费金额" align="center" >
+        </el-table-column>
+      </el-table>
       <span slot="footer" class="dialog-footer">
            <el-button @click="dialogVisible = false">取 消</el-button>
            <el-button type="primary" @click="modify">确 定</el-button>
@@ -51,6 +76,7 @@
 <script>
 import Notification2 from "@/components/content/Notification2";
 import {get, getAll} from "@/network/request";
+import axios from "axios";
 export default {
   name: "TripNotice",
   components: {
@@ -61,26 +87,51 @@ data(){
     dialogVisible: false,
     tableData: [],
     showData: {
-    }
+    },
+    pageNum:1,
+    pageSize:3,
+    otherconsumes:[]
   }
 },
 methods: {
   getData(){
-    get('/Trip/queryTripInfoById',{
+    axios.get('http://localhost:8081/Trip/queryTripInfoById',{
       params: {
-        id: localStorage.getItem("staffId")
+        id: localStorage.getItem("staffId"),
+        pageNum:this.pageNum,
+        pageSize:this.pageSize
       }
     }).then(res =>{
+      console.log(res)
       this.tableData = res.data.data
     })
   },
   handleClick(row){
    /* console.log(row);*/
     this.dialogVisible = true
-    this.showData = row
+    this.otherconsumes=row.otherconsumes
+    this.showData = row.schedules
   },
   modify(){
     this.dialogVisible = false
+  },
+  state(row){
+    switch (row.state){
+      case 0:
+        return '未审批'
+      case 1:
+        return '已批准'
+      case 2:
+        return '未批准'
+    }
+  },
+  handleCurrentChange(val){
+    this.pageNum = val
+    this.getData()
+  },
+  handleSizeChange(val){
+    this.pageSize = val
+    this.getData()
   }
 },
   created() {

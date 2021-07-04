@@ -38,6 +38,29 @@
              </el-table-column>
            </el-table>
          </template>
+         <el-dialog
+             title="详情"
+             :visible.sync="dialogVisible"
+             width="35%">
+           >
+           <el-table
+               :data="showData"
+               stripe
+               style="width: 100%">
+             <el-table-column prop="cost" label="花费" align="center" >
+             </el-table-column>
+             <el-table-column prop="departure" label="出发地" align="center" >
+             </el-table-column>
+             <el-table-column prop="destination" label="目的地" align="center" >
+             </el-table-column>
+             <el-table-column prop="transport" label="交通工具" align="center" >
+             </el-table-column>
+           </el-table>
+           <span slot="footer" class="dialog-footer">
+           <el-button @click="dialogVisible = false">取 消</el-button>
+           <el-button type="primary" @click="modify">确 定</el-button>
+      </span>
+         </el-dialog>
        </div>
      </notification2>
    </div>
@@ -53,7 +76,9 @@ export default {
   },
   data(){
     return {
-      tableData: []
+      tableData: [],
+      dialogVisible:false,
+      showData:[]
     }
   },
   methods: {
@@ -63,11 +88,14 @@ export default {
         this.tableData=res.data.data
       })
     },
+    modify(){
+      this.dialogVisible = false
+    },
     agree(row){
     axios.put("http://localhost:8081/Trip/updateStaffById/1/"+row.tripId)
       .then(res=>{
         if (res.data.status === 200){
-          this.$message.success("已审批")
+          this.$message.success("已批准")
         }else{
           this.$message.error(res.data.message)
         }
@@ -87,6 +115,7 @@ export default {
           })
     },
     handleClick(row){
+     this.dialogVisible=true
 
     }
   },

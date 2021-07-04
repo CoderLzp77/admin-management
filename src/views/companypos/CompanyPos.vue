@@ -134,8 +134,12 @@ export default {
       /*console.log(submitTable);*/
     },
     deleteJob(row){
-      axios.delete('http://8.140.107.62:8081/DeleteJob/'+row.JobId).then(res => {
-        console.log(res);
+      axios.delete('http://localhost:8081/Job/DeleteJob/'+row.JobId).then(res => {
+        if (res.data.status === 200){
+          this.$message.success("删除成功")
+        }else {
+          this.$message.error(res.data.message)
+        }
       })
     },
     modify(){

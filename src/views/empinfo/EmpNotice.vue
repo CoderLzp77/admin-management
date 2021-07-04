@@ -20,7 +20,7 @@
           </el-table-column>
           <el-table-column prop="organization.name" label="部门"  align="center" >
           </el-table-column>
-          <el-table-column prop="jobId" label="岗位"  align="center" >
+          <el-table-column prop="jobId" label="岗位"  align="center" :formatter="job">
           </el-table-column>
           <el-table-column prop="directBoss" label="直接领导"  align="center" >
           </el-table-column>
@@ -51,11 +51,13 @@
 
 <script>
 import {get} from "@/network/request";
+import axios from "axios";
 
 export default {
   name: "EmpNotice",
   data(){
     return {
+      jobmap:new Map,
       empMessage: '' ,
       tableData: [],
       pageNum: 1,
@@ -63,6 +65,22 @@ export default {
     }
   },
   methods: {
+    getJob(){
+      axios.get("http://localhost:8081/Job/ShowJobInfoLimit",{
+        params:{
+          pageNum:1
+        }
+      }).then(res=>{
+        console.log(this.Jobdata)
+        this.Jobdata=res.data.data
+        let map=new Map
+        for (let i = 0; i < this.Jobdata.length; i++) {
+          map.set(this.Jobdata[i].jobId,this.Jobdata[i].jobName)
+          this.jobmap=map
+        }
+        console.log(this.Jobdata)
+      })
+    },
     onSubmit() {
       this.getData()
     },
@@ -88,9 +106,13 @@ export default {
           console.log(res);
           this.tableData = res.data.data
         })
-    }
+    },
+    job(row){
+      return this.jobmap.get(row.jobId)
+    },
   },
   created() {
+    this.getJob()
     this.getData()
   }
 }

@@ -88,7 +88,7 @@ export default {
       askforleave: [],
       dialogVisible: false,
       pageNum: 1,
-      pageSize: 1
+      pageSize: 3
     }
   },
   methods: {

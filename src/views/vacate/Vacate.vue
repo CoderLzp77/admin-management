@@ -5,8 +5,8 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="请假类别" prop="region">
         <el-select v-model="ruleForm.region" placeholder="请选择请假类别">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
+          <el-option label="出差" value="shanghai"></el-option>
+          <el-option label="看病" value="beijing"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="开始时间" required width="100px">
@@ -32,15 +32,22 @@
 </template>
 
 <script>
+import axios from "axios";
+import Qs from "qs";
+
 export default {
   name: "Vacate",
   data(){
     return {
       ruleForm: {
-        region: '',
-        date1: '',
-        date2: '',
-        desc: ''
+        startTime: '',
+        endTime: '',
+        duration: '',
+        category: '',
+        reason:'',
+        state:0,
+        applicant:'',
+        approvalId:''
       },
       rules: {
         region: [
@@ -62,7 +69,7 @@ export default {
     submitForm(formName) {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          alert('submit!');
+         axios.post("http://localhost:8081/Askforleave/AddLeave",Qs.parse())
         } else {
           console.log('error submit!!');
           return false;

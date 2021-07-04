@@ -108,10 +108,14 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           console.log(this.ruleForm)
-          alert('submit!');
           axios.post("http://localhost:8081/Trip/AddTrip",Qs.parse(this.ruleForm))
           .then(res=>{
-            console.log(res)
+            if (res.data.status === 200){
+              this.$router.push('/tripNotice')
+              this.$message.success("申请成功")
+            }else{
+              this.$message.error(res.data.message)
+            }
           })
         } else {
           console.log('error submit!!');
